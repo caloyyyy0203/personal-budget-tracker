@@ -1,0 +1,35 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+<h2>Dashboard</h2>
+
+<div class="summary">
+    <p><strong>Total Income:</strong> ₱{{ total_income }}</p>
+    <p><strong>Total Expenses:</strong> ₱{{ total_expense }}</p>
+    <p><strong>Balance:</strong> ₱{{ balance }}</p>
+</div>
+
+<h3>Entries for {{ today|date:"F Y" }}</h3>
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Date</th>
+        <th>Title</th>
+        <th>Type</th>
+        <th>Category</th>
+        <th>Amount</th>
+    </tr>
+    {% for entry in entries %}
+    <tr>
+        <td>{{ entry.date }}</td>
+        <td>{{ entry.title }}</td>
+        <td>{{ entry.entry_type }}</td>
+        <td>{{ entry.category.name }}</td>
+        <td>₱{{ entry.amount }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="5">No entries this month.</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

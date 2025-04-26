@@ -3,6 +3,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import EntryForm
 from django.contrib.auth.decorators import login_required
+from .models import Entry
+from django.db.models import Sum
+from django.utils import timezone
 
 
 def register(request):
@@ -29,3 +32,31 @@ def add_entry(request):
     else:
         form = EntryForm()
     return render(request, 'tracker/add_entry.html', {'form': form})
+
+@login_required
+def dashboard(request):
+    today = timezone.now()
+
+    # Filter only the current logged-in user's entries for the current month
+    current_month_entries = Entry.objects.filter(
+        user=request.user,
+        date__month=today.month,
+        date__year=today.year
+    )
+
+    total_income = current_month_entries.filter(entry_type='Income').aggregate(Sum('amount'))['amount__sum'] or 0
+    total_expense = current_month_entries.filter(entry_type='Expense').aggregate(Sum('amount'))['amount__sum'] or 0
+    balance = total_income - total_expense
+
+    context = {
+        'total_income': total_income,
+        'total_expense': total_expense,
+        'balance': balance,
+        'entries': current_month_entries,
+        'today': today,  # so we can display month/year
+    }
+
+    return render(request, 'tracker/dashboard.html', context)
+
+def landing_page(request):
+    return render(request, 'tracker/landing_page.html')
