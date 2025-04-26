@@ -1,0 +1,28 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Budget Tracker{% endblock %}</title>
+    <!-- Add Bootstrap or your custom stylesheets here -->
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'add_entry' %}">Add Entry</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        {% block content %}
+        <!-- The content of individual pages will go here -->
+        {% endblock %}
+    </div>
+    <footer>
+        <p>&copy; 2025 Budget Tracker</p>
+    </footer>
+</body>
+</html>
