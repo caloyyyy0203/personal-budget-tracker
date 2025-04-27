@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import EntryForm
@@ -32,6 +32,21 @@ def add_entry(request):
     else:
         form = EntryForm()
     return render(request, 'tracker/add_entry.html', {'form': form})
+
+@login_required
+def edit_entry(request, entry_id):
+    # Get the entry object for the logged-in user
+    entry = get_object_or_404(Entry, id=entry_id, user=request.user)
+
+    if request.method == "POST":
+        form = EntryForm(request.POST, instance=entry)
+        if form.is_valid():
+            form.save()
+            return redirect('entry_list')  # Redirect to a list or a detail view
+    else:
+        form = EntryForm(instance=entry)
+
+    return render(request, 'tracker/edit_entry.html', {'form': form, 'entry': entry})
 
 @login_required
 def dashboard(request):

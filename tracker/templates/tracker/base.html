@@ -1,12 +1,14 @@
 <!-- base.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Budget Tracker{% endblock %}</title>
     <!-- Add Bootstrap or your custom stylesheets here -->
 </head>
+
 <body>
     <header>
         <nav>
@@ -16,7 +18,8 @@
                 <li>
                     <form method="post" action="{% url 'logout' %}" style="display:inline;">
                         {% csrf_token %}
-                        <button type="submit" style="background:none; border:none; padding:0; margin:0; font:inherit; color:blue; text-decoration:underline; cursor:pointer;">
+                        <button type="submit"
+                            style="background:none; border:none; padding:0; margin:0; font:inherit; color:blue; text-decoration:underline; cursor:pointer;">
                             Logout
                         </button>
                     </form>
@@ -24,7 +27,7 @@
             </ul>
         </nav>
     </header>
-    
+
     <div class="container">
         {% block content %}
         <!-- The content of individual pages will go here -->
@@ -34,4 +37,5 @@
         <p>&copy; 2025 Budget Tracker</p>
     </footer>
 </body>
+
 </html>
