@@ -32,4 +32,60 @@
     </tr>
     {% endfor %}
 </table>
+
+<!-- Pie Chart for Expenses by Category -->
+<h3>Expense Breakdown by Category</h3>
+<canvas class="chart" id="pieChart"></canvas>
+
+<!-- Bar Chart for Monthly Income vs Expenses -->
+<h3>Monthly Income vs Expenses</h3>
+<canvas class="chart" id="barChart"></canvas>
+
+
+<!-- Pass data to JavaScript using json_script -->
+{{ category_names|json_script:"category_names" }}
+{{ category_totals|json_script:"category_totals" }}
+{{ income|json_script:"income" }}
+{{ expense|json_script:"expense" }}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Pie Chart for Expense Breakdown by Category
+    var categoryNames = JSON.parse(document.getElementById('category_names').textContent);
+    var categoryTotals = JSON.parse(document.getElementById('category_totals').textContent);
+
+    var ctxPie = document.getElementById('pieChart').getContext('2d');
+    var pieChart = new Chart(ctxPie, {
+        type: 'pie',
+        data: {
+            labels: categoryNames,
+            datasets: [{
+                label: 'Expense Breakdown',
+                data: categoryTotals,
+                backgroundColor: ['#FF6347', '#FF9F40', '#FFCD47', '#FF6A6A', '#FFC0CB'], // Add more colors if necessary
+                borderColor: '#fff',
+                borderWidth: 1
+            }]
+        }
+    });
+
+    // Bar Chart for Monthly Income vs Expenses
+    var monthlyIncome = JSON.parse(document.getElementById('income').textContent);
+    var monthlyExpense = JSON.parse(document.getElementById('expense').textContent);
+
+    var ctxBar = document.getElementById('barChart').getContext('2d');
+    var barChart = new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+            labels: ['Income', 'Expense'],
+            datasets: [{
+                label: 'Amount',
+                data: [monthlyIncome, monthlyExpense],
+                backgroundColor: ['#4CAF50', '#F44336'], // Green for Income, Red for Expense
+                borderColor: ['#388E3C', '#D32F2F'],
+                borderWidth: 1
+            }]
+        }
+    });
+</script>
 {% endblock %}
