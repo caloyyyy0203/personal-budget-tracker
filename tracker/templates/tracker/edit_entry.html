@@ -1,0 +1,21 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'tracker/css/add_entry.css' %}">
+
+<div class="container_entry">
+    <h2 class="form-title">EDIT INCOME / EXPENSE</h2>
+
+    <form method="POST" class="entry-form">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+
+        <button type="submit" class="btn btn-submit">Save Changes</button>
+    </form>
+</div>
+
+{% endblock %}

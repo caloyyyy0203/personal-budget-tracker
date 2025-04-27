@@ -21,7 +21,7 @@
     {% for entry in entries %}
     <tr>
         <td>{{ entry.date }}</td>
-        <td>{{ entry.title }}</td>
+        <td><a href="{% url 'edit_entry' entry.id %}">{{ entry.title }}</a></td>
         <td>{{ entry.entry_type }}</td>
         <td>{{ entry.category.name }}</td>
         <td>₱{{ entry.amount }}</td>
