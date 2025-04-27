@@ -35,11 +35,12 @@
 
 <!-- Pie Chart for Expenses by Category -->
 <h3>Expense Breakdown by Category</h3>
-<canvas id="pieChart" width="400" height="400"></canvas>
+<canvas class="chart" id="pieChart"></canvas>
 
 <!-- Bar Chart for Monthly Income vs Expenses -->
 <h3>Monthly Income vs Expenses</h3>
-<canvas id="barChart" width="400" height="400"></canvas>
+<canvas class="chart" id="barChart"></canvas>
+
 
 <!-- Pass data to JavaScript using json_script -->
 {{ category_names|json_script:"category_names" }}
