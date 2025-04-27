@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Entry
 from django.db.models import Sum
 from django.utils import timezone
+from django.core.serializers import serialize
+import json
 
 
 def register(request):
@@ -63,15 +65,28 @@ def dashboard(request):
     total_expense = current_month_entries.filter(entry_type='Expense').aggregate(Sum('amount'))['amount__sum'] or 0
     balance = total_income - total_expense
 
+    # Summarize expenses by category
+    expense_categories = current_month_entries.filter(entry_type='Expense')
+    expense_by_category = expense_categories.values('category__name').annotate(total_amount=Sum('amount'))
+
+    # Prepare data for the bar chart and pie chart
+    category_names = [entry['category__name'] for entry in expense_by_category]
+    category_totals = [entry['total_amount'] for entry in expense_by_category]
+
     context = {
         'total_income': total_income,
         'total_expense': total_expense,
         'balance': balance,
         'entries': current_month_entries,
-        'today': today,  # so we can display month/year
+        'today': today,
+        'category_names': category_names,
+        'category_totals': category_totals,
+        'income': total_income,
+        'expense': total_expense,
     }
 
     return render(request, 'tracker/dashboard.html', context)
+
 
 def landing_page(request):
     return render(request, 'tracker/landing_page.html')
