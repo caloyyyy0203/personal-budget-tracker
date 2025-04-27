@@ -42,7 +42,7 @@ def edit_entry(request, entry_id):
         form = EntryForm(request.POST, instance=entry)
         if form.is_valid():
             form.save()
-            return redirect('entry_list')  # Redirect to a list or a detail view
+            return redirect('dashboard') 
     else:
         form = EntryForm(instance=entry)
 
