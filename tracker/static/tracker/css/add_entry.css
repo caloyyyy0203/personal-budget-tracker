@@ -1,0 +1,151 @@
+/* Base styles */
+:root {
+    --primary-color: #4a6fa5;
+    --primary-hover: #3a5a8c;
+    --text-color: #333;
+    --light-gray: #f5f7fa;
+    --border-color: #ddd;
+    --success-color: #4caf50;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  body {
+    font-family: 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text-color);
+    line-height: 1.6;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Parallax background */
+    .container {
+        padding: 30px;
+        background-image: url('../images/scales.png'); /*subject to change*/
+        height: auto; 
+        background-attachment: fixed; 
+        background-position: center; 
+        background-repeat: no-repeat; 
+        background-size: 1450px;
+        position: relative;
+
+    }
+  
+  .container_entry{
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+  }
+  /* Form title styling */
+  .form-title {
+    font-weight: 500;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    text-align: center;
+  }
+  
+  /* Form styling */
+  .entry-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  /* Django form styling */
+  .entry-form p {
+    margin-bottom: 20px;
+  }
+  
+  .entry-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+  }
+  
+  .entry-form input[type="text"],
+  .entry-form input[type="number"],
+  .entry-form input[type="date"],
+  .entry-form select,
+  .entry-form textarea {
+    width: 90%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--light-gray);
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  .entry-form input:focus,
+  .entry-form select:focus,
+  .entry-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(74, 111, 165, 0.1);
+  }
+  
+  /* Button styling */
+  .btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s, transform 0.1s;
+  }
+  
+  .btn-submit {
+    background-color: var(--primary-color);
+    color: white;
+    align-self: center;
+    min-width: 150px;
+  }
+  
+  .btn-submit:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+  }
+  
+  .btn-submit:active {
+    transform: translateY(0);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .container {
+      padding: 20px;
+      margin: 20px;
+      width: auto;
+    }
+    
+    .btn-submit {
+      width: 100%;
+    }
+  }
+  
+  /* Helper text styling */
+  .helptext {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+    color: #777;
+  }
+  
+  /* Error styling */
+  .errorlist {
+    color: #d32f2f;
+    font-size: 14px;
+    list-style: none;
+    padding: 0;
+    margin: 5px 0 0;
+  }
