@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import EntryForm
 from django.contrib.auth.decorators import login_required
-from .models import Entry
+from .models import Entry, Category
 from django.db.models import Sum
 from django.utils import timezone
 from django.http import HttpResponse
@@ -60,9 +60,19 @@ def edit_entry(request, entry_id):
     return render(request, 'tracker/edit_entry.html', {'form': form, 'entry': entry})
 
 @login_required
+def delete_entry(request, id):
+    entry = get_object_or_404(Entry, id=id)
+    
+    if request.method == "POST":
+        entry.delete()
+        return redirect('dashboard')  # Redirect to the dashboard or the relevant page
+    
+    return redirect('dashboard')
+
+@login_required
 def dashboard(request):
     today = timezone.now()
-
+    now = datetime.now()
     # Get selected month/year from GET parameters
     selected_month = request.GET.get('month')
     selected_year = request.GET.get('year')
@@ -109,6 +119,7 @@ def dashboard(request):
     ]
     current_year = today.year
     start_year = 2020  # Adjust based on your needs
+    categories = Category.objects.all() 
 
     context = {
         'total_income': total_income,
@@ -124,6 +135,8 @@ def dashboard(request):
         'category_totals': category_totals,
         'income': total_income,
         'expense': total_expense,
+        'categories': categories,
+        'now': now,
     }
 
     return render(request, 'tracker/dashboard.html', context)

@@ -11,5 +11,6 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('add/', views.add_entry, name='add_entry'),
     path('entry/edit/<int:entry_id>', views.edit_entry, name="edit_entry"),
-    path('export_csv/', views.export_csv, name='export_csv')
+    path('export_csv/', views.export_csv, name='export_csv'),
+     path('delete_entry/<int:id>/', views.delete_entry, name='delete_entry'),
 ]
