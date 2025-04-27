@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import EntryForm
 from django.contrib.auth.decorators import login_required
-from .models import Entry
+from .models import Entry, Category
 from django.db.models import Sum
 from django.utils import timezone
 from django.http import HttpResponse
@@ -109,6 +109,7 @@ def dashboard(request):
     ]
     current_year = today.year
     start_year = 2020  # Adjust based on your needs
+    categories = Category.objects.all() 
 
     context = {
         'total_income': total_income,
@@ -124,6 +125,7 @@ def dashboard(request):
         'category_totals': category_totals,
         'income': total_income,
         'expense': total_expense,
+        'categories': categories,
     }
 
     return render(request, 'tracker/dashboard.html', context)
