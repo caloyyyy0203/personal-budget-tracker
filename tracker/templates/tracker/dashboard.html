@@ -3,6 +3,28 @@
 {% block content %}
 <h2>Dashboard</h2>
 
+<!-- Add New Entry Button for specific month -->
+<a href="{% url 'add_entry' %}?month={{ month }}&year={{ year }}" class="btn btn-primary" style="margin-bottom: 20px;">+ Add Entry for {{ month }}/{{ year }}</a>
+
+<!-- Month and Year Filter Form -->
+<form method="get" style="margin-bottom: 20px;">
+    <label for="month">Month:</label>
+    <select name="month" id="month">
+        {% for m, name in months %}
+            <option value="{{ m }}" {% if m == month|stringformat:"s" %}selected{% endif %}>{{ name }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="year">Year:</label>
+    <select name="year" id="year">
+        {% for y in year_range %}
+            <option value="{{ y }}" {% if y == year %}selected{% endif %}>{{ y }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Filter</button>
+</form>
+
 <div class="summary">
     <p><strong>Total Income:</strong> ₱{{ total_income }}</p>
     <p><strong>Total Expenses:</strong> ₱{{ total_expense }}</p>
@@ -33,6 +55,9 @@
     {% endfor %}
 </table>
 
+<!-- Export Button (CSV download) -->
+<a href="{% url 'export_csv' %}" class="btn btn-secondary" style="margin-top: 20px;">Export as CSV</a>
+
 <!-- Pie Chart for Expenses by Category -->
 <h3>Expense Breakdown by Category</h3>
 <canvas class="chart" id="pieChart"></canvas>
@@ -40,7 +65,6 @@
 <!-- Bar Chart for Monthly Income vs Expenses -->
 <h3>Monthly Income vs Expenses</h3>
 <canvas class="chart" id="barChart"></canvas>
-
 
 <!-- Pass data to JavaScript using json_script -->
 {{ category_names|json_script:"category_names" }}
@@ -62,7 +86,7 @@
             datasets: [{
                 label: 'Expense Breakdown',
                 data: categoryTotals,
-                backgroundColor: ['#FF6347', '#FF9F40', '#FFCD47', '#FF6A6A', '#FFC0CB'], // Add more colors if necessary
+                backgroundColor: ['#FF6347', '#FF9F40', '#FFCD47', '#FF6A6A', '#FFC0CB'],
                 borderColor: '#fff',
                 borderWidth: 1
             }]
@@ -81,11 +105,12 @@
             datasets: [{
                 label: 'Amount',
                 data: [monthlyIncome, monthlyExpense],
-                backgroundColor: ['#4CAF50', '#F44336'], // Green for Income, Red for Expense
+                backgroundColor: ['#4CAF50', '#F44336'],
                 borderColor: ['#388E3C', '#D32F2F'],
                 borderWidth: 1
             }]
         }
     });
 </script>
+
 {% endblock %}
