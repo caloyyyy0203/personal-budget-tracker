@@ -1,0 +1,17 @@
+<form method="get" style="margin-bottom: 20px;">
+    <label for="month">Month:</label>
+    <select name="month" id="month">
+        {% for m, name in months %}
+            <option value="{{ m }}" {% if m == month|stringformat:"s" %}selected{% endif %}>{{ name }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="year">Year:</label>
+    <select name="year" id="year">
+        {% for y in year_range %}
+            <option value="{{ y }}" {% if y == year %}selected{% endif %}>{{ y }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Filter</button>
+</form>
