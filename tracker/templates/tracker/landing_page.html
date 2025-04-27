@@ -1,4 +1,87 @@
-<h2>This is the landing page.</h2>
-<p>Hello there.</p>
-<a href="{% url 'register' %}">Register</a>
-<a href="{% url 'login' %}">Login</a>
+{% load static %}
+
+    <style>
+        h3{
+            margin-inline-start: 0;
+            margin-block-start: 0;
+            margin-block-end: 0.5em;
+        }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items:flex-start;
+            padding: 1rem 2rem;
+            background-color: #f8f9fa;
+        }
+
+        .site-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding-left: 40px;
+        }
+
+        .moto {
+            font-size: 100px;
+        }
+        
+
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .register-btn {
+            padding: 10px 20px;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            color: #007bff;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .register-btn:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .login-btn {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #43c900;
+        }
+    </style>
+    <body>
+
+    <div class="header">
+        <div class="site-name">Budgetarian</div>
+    </div>
+
+    <div class="main">
+        <h3 class="moto">Smart tracking for </br>
+             your budget</h3>
+
+        <div class="buttons">
+            <a href="{% url 'register' %}" class="register-btn">Get Started</a>
+            <a href="{% url 'login' %}" class="login-btn">Login</a>
+        </div>
+    </div>
+
+</body>
+
