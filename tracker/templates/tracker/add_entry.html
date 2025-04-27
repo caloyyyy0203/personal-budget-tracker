@@ -8,13 +8,45 @@
 <div class="container_entry">
     <h2 class="form-title">ADD INCOME / EXPENSE</h2>
 
-    <form method="POST" class="entry-form">
+    <form method="post">
         {% csrf_token %}
-        <div class="form-group">
-            {{ form.as_p }}
-        </div>
-
-        <button type="submit" class="btn btn-submit">Save Entry</button>
+        {{ form.as_p }}
+    
+        {% if form.errors %}
+            <ul>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ field.label }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    
+        <button type="submit">Save Entry</button>
     </form>
+    
+    <script>
+        const entryTypeSelect = document.getElementById('id_entry_type');
+        const categorySelect = document.getElementById('id_category');
+    
+        function toggleCategory() {
+            if (entryTypeSelect.value === 'Income') {
+                categorySelect.disabled = true;
+                categorySelect.value = ''; // clear selection if any
+            } else {
+                categorySelect.disabled = false;
+            }
+        }
+    
+        // Run when page loads (for edit forms)
+        toggleCategory();
+    
+        // Run when entry type changes
+        entryTypeSelect.addEventListener('change', toggleCategory);
+    </script>    
+        
 </div>
 {% endblock %}
