@@ -5,6 +5,9 @@ class EntryForm(forms.ModelForm):
     class Meta:
         model = Entry
         fields = ['title', 'amount', 'date', 'entry_type', 'category', 'notes']
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+        }
 
     # 1️⃣ Field validation: Amount must be positive
     def clean_amount(self):
