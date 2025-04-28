@@ -19,16 +19,16 @@ body {
 }
 
 /* Parallax background */
-.container {
+/* .container {
   padding: 30px;
-  background-image: url('../images/scales.png'); /*subject to change*/
+  background-image: url('../images/scales.png');
   height: auto;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: 1450px;
-  position: relative;
-}
+  position: relative; 
+}*/
 
 .container_entry {
   max-width: 400px;

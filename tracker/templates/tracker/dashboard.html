@@ -1,15 +1,31 @@
 {% extends 'tracker/base.html' %}
+{% load static %}
 
 {% block content %}
 <h2>Dashboard</h2>
 
-<div class="summary">
-    <p><strong>Total Income:</strong> ₱{{ total_income }}</p>
-    <p><strong>Total Expenses:</strong> ₱{{ total_expense }}</p>
-    <p><strong>Balance:</strong> ₱{{ balance }}</p>
-</div>
+{% if exceeded_categories %}
+    {% include 'tracker/includes/warning.html'%}
+{% endif %}
+
+<button type="button" class="btn btn-primary" style="margin-bottom: 20px;" data-bs-toggle="modal" data-bs-target="#addEntryModal"> + Add Entry for {{ month }}/{{ year }} </button>
+<!-- Include Add Entry Modal -->
+{% include 'tracker/modals/add_entry_modal.html' %}
+
+<button type="button" class="btn btn-primary" style="margin-bottom: 20px;" data-bs-toggle="modal" data-bs-target="#setBudgetModal"> Set Budget </button>
+
+{% include 'tracker/modals/set_budget_modal.html'%}
+<!-- Include Filter Form -->
+{% include 'tracker/includes/filters.html' %}
+
+<!-- Include Summary -->
+{% include 'tracker/includes/summary.html' %}
+
+<!-- Include Charts -->
+{% include 'tracker/includes/charts.html' %}
 
 <h3>Entries for {{ today|date:"F Y" }}</h3>
+
 <table border="1" cellpadding="5">
     <tr>
         <th>Date</th>
@@ -25,7 +41,23 @@
         <td>{{ entry.entry_type }}</td>
         <td>{{ entry.category.name }}</td>
         <td>₱{{ entry.amount }}</td>
+        <td>
+            <!-- Edit Button -->
+            <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editEntryModal{{ entry.id }}">
+              Edit
+            </button>
+
+            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteEntryModal{{ entry.id }}">
+                Delete
+            </button>
+        </td>
+
     </tr>
+
+    <!-- Include the Edit and Delete Modals for each entry -->
+    {% include 'tracker/modals/edit_entry_modal.html' %}
+    {% include 'tracker/modals/delete_entry_modal.html' %}
+
     {% empty %}
     <tr>
         <td colspan="5">No entries this month.</td>
@@ -33,13 +65,9 @@
     {% endfor %}
 </table>
 
-<!-- Pie Chart for Expenses by Category -->
-<h3>Expense Breakdown by Category</h3>
-<canvas class="chart" id="pieChart"></canvas>
+<!-- Export Button (CSV download) -->
+<a href="{% url 'export_csv' %}" class="btn btn-secondary" style="margin-top: 20px;">Export as CSV</a>
 
-<!-- Bar Chart for Monthly Income vs Expenses -->
-<h3>Monthly Income vs Expenses</h3>
-<canvas class="chart" id="barChart"></canvas>
 
 
 <!-- Pass data to JavaScript using json_script -->
@@ -49,43 +77,6 @@
 {{ expense|json_script:"expense" }}
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    // Pie Chart for Expense Breakdown by Category
-    var categoryNames = JSON.parse(document.getElementById('category_names').textContent);
-    var categoryTotals = JSON.parse(document.getElementById('category_totals').textContent);
+<script src="{% static 'tracker/js/charts.js' %}"></script>
 
-    var ctxPie = document.getElementById('pieChart').getContext('2d');
-    var pieChart = new Chart(ctxPie, {
-        type: 'pie',
-        data: {
-            labels: categoryNames,
-            datasets: [{
-                label: 'Expense Breakdown',
-                data: categoryTotals,
-                backgroundColor: ['#FF6347', '#FF9F40', '#FFCD47', '#FF6A6A', '#FFC0CB'], // Add more colors if necessary
-                borderColor: '#fff',
-                borderWidth: 1
-            }]
-        }
-    });
-
-    // Bar Chart for Monthly Income vs Expenses
-    var monthlyIncome = JSON.parse(document.getElementById('income').textContent);
-    var monthlyExpense = JSON.parse(document.getElementById('expense').textContent);
-
-    var ctxBar = document.getElementById('barChart').getContext('2d');
-    var barChart = new Chart(ctxBar, {
-        type: 'bar',
-        data: {
-            labels: ['Income', 'Expense'],
-            datasets: [{
-                label: 'Amount',
-                data: [monthlyIncome, monthlyExpense],
-                backgroundColor: ['#4CAF50', '#F44336'], // Green for Income, Red for Expense
-                borderColor: ['#388E3C', '#D32F2F'],
-                borderWidth: 1
-            }]
-        }
-    });
-</script>
 {% endblock %}
