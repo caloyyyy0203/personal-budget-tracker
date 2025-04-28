@@ -3,12 +3,14 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import EntryForm
 from django.contrib.auth.decorators import login_required
-from .models import Entry, Category
+from .models import Entry, Category, Budget
 from django.db.models import Sum
 from django.utils import timezone
 from django.http import HttpResponse
 import csv
 from datetime import datetime
+from decimal import Decimal
+from django.http import JsonResponse
 
 
 def register(request):
@@ -70,6 +72,55 @@ def delete_entry(request, id):
     return redirect('dashboard')
 
 @login_required
+def set_budget(request):
+    if request.method == 'POST':
+        category_id = request.POST.get('category')
+        amount = request.POST.get('budget')
+
+        try:
+            amount = Decimal(amount)  # Convert to Decimal
+        except (ValueError, TypeError):
+            # Handle invalid amount input
+            return render(request, 'tracker/modals/set_budget.html', {'error': 'Invalid amount', 'categories': Category.objects.all()})
+
+        category = Category.objects.get(id=category_id)
+
+        # Check if a budget already exists for this user and category
+        current_budget = Budget.objects.filter(user=request.user, category=category).first()
+
+        if current_budget:
+            # Update existing budget
+            current_budget.amount = amount
+            current_budget.save()
+        else:
+            # Create a new budget entry
+            Budget.objects.create(
+                user=request.user,
+                category=category,
+                month=timezone.now().month,
+                year=timezone.now().year,
+                amount=amount
+            )
+
+        return redirect('dashboard')
+
+    # For GET request, just return the form with categories
+    categories = Category.objects.all()
+    return render(request, 'tracker/modals/set_budget_modal.html', {'categories': categories})
+
+
+@login_required
+def get_budget_for_category(request, category_id):
+    # Fetch the budget for the selected category and user
+    current_budget = Budget.objects.filter(user=request.user, category_id=category_id).first()
+    
+    if current_budget:
+        return JsonResponse({'amount': str(current_budget.amount)})
+    else:
+        return JsonResponse({'amount': 0})
+
+
+@login_required
 def dashboard(request):
     today = timezone.now()
     now = datetime.now()
@@ -120,6 +171,8 @@ def dashboard(request):
     current_year = today.year
     start_year = 2020  # Adjust based on your needs
     categories = Category.objects.all() 
+    current_budget = Budget.objects.filter(user=request.user, month=month, year=year).first()
+
 
     context = {
         'total_income': total_income,
@@ -137,6 +190,7 @@ def dashboard(request):
         'expense': total_expense,
         'categories': categories,
         'now': now,
+        'current_budget': current_budget,
     }
 
     return render(request, 'tracker/dashboard.html', context)
