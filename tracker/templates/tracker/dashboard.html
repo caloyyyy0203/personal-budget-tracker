@@ -4,6 +4,10 @@
 {% block content %}
 <h2>Dashboard</h2>
 
+{% if exceeded_categories %}
+    {% include 'tracker/includes/warning.html'%}
+{% endif %}
+
 <button type="button" class="btn btn-primary" style="margin-bottom: 20px;" data-bs-toggle="modal" data-bs-target="#addEntryModal"> + Add Entry for {{ month }}/{{ year }} </button>
 <!-- Include Add Entry Modal -->
 {% include 'tracker/modals/add_entry_modal.html' %}

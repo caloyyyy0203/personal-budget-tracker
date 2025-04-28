@@ -1,0 +1,33 @@
+<style>
+    .custom-warning {
+        font-size: 14px;  /* Smaller text */
+        padding: 10px;    /* Reduced padding for a more compact alert */
+        background-color: #fff3cd;  /* Subtle yellow */
+        border-color: #ffeeba;  /* Lighter border color */
+        color: #856404;  /* Dark yellow text */
+        width: 45%;
+    }
+
+    .custom-warning ul {
+        padding-left: 20px;  /* Indentation for the list */
+        margin-bottom: 0;  /* Remove bottom margin */
+    }
+
+    .custom-warning li {
+        font-size: 13px;  /* Smaller text size for the list items */
+        margin-bottom: 5px;  /* Space between list items */
+    }
+
+</style>
+
+<div class="alert alert-warning custom-warning" role="alert">
+    <strong>Warning!</strong> The following categories have exceeded the budget for {{ month }}/{{ year }}:
+    <ul>
+        {% for category in exceeded_categories %}
+            <li>
+                <strong>{{ category.category_name }}:</strong>
+                Budget: ₱{{ category.budget }} | Total Expense: ₱{{ category.total_expense }}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
