@@ -150,6 +150,22 @@ def dashboard(request):
     expense_categories = entries.filter(entry_type='Expense')
     expense_by_category = expense_categories.values('category__name').annotate(total_amount=Sum('amount'))
 
+    exceeded_categories = []
+    for category in expense_by_category:
+        category_name = category['category__name']
+        total_expense_in_category = category['total_amount']
+        
+        # Get the budget for this category
+        budget = Budget.objects.filter(user=request.user, category__name=category_name, month=month, year=year).first()
+        
+        # Check if there's a budget and if the total expenses exceed the budget
+        if budget and total_expense_in_category > budget.amount:
+            exceeded_categories.append({
+                'category_name': category_name,
+                'budget': budget.amount,
+                'total_expense': total_expense_in_category
+            })
+
     category_names = [entry['category__name'] for entry in expense_by_category]
     category_totals = [entry['total_amount'] for entry in expense_by_category]
 
@@ -191,6 +207,7 @@ def dashboard(request):
         'categories': categories,
         'now': now,
         'current_budget': current_budget,
+        'exceeded_categories': exceeded_categories,
     }
 
     return render(request, 'tracker/dashboard.html', context)
