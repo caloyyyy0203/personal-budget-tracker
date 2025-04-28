@@ -1,4 +1,3 @@
-<!-- edit_entry_modal.html -->
 <div class="modal fade" id="editEntryModal{{ entry.id }}" tabindex="-1" aria-labelledby="editEntryModalLabel{{ entry.id }}" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -21,7 +20,7 @@
 
                     <div class="mb-3">
                         <label for="entry_type" class="form-label">Type</label>
-                        <select class="form-select" name="entry_type" required>
+                        <select class="form-select" name="entry_type" id="id_entry_type_{{ entry.id }}" required>
                             <option value="Income" {% if entry.entry_type == 'Income' %}selected{% endif %}>Income</option>
                             <option value="Expense" {% if entry.entry_type == 'Expense' %}selected{% endif %}>Expense</option>
                         </select>
@@ -29,7 +28,8 @@
 
                     <div class="mb-3">
                         <label for="category" class="form-label">Category</label>
-                        <select class="form-select" name="category" required>
+                        <select class="form-select" name="category" id="id_category_{{ entry.id }}" required>
+                            <option value="" selected disabled>Select Category</option>
                             {% for category in categories %}
                                 <option value="{{ category.id }}" {% if category.id == entry.category.id %}selected{% endif %}>
                                     {{ category.name }}
@@ -40,7 +40,7 @@
 
                     <div class="mb-3">
                         <label for="amount" class="form-label">Amount</label>
-                        <input type="number" class="form-control" name="amount" value="{{ entry.amount }}" step="0.01" required>
+                        <input type="number" class="form-control" name="amount" value="{{ entry.amount }}" step="0.01" required min="0.01">
                     </div>
 
                 </div>
@@ -52,3 +52,29 @@
         </div>
     </div>
 </div>
+
+<!-- JavaScript for category toggle -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Add event listeners for each entry modal
+    const entryTypeSelect = document.getElementById('id_entry_type_{{ entry.id }}');
+    const categorySelect = document.getElementById('id_category_{{ entry.id }}');
+
+    // Function to toggle category
+    function toggleCategory() {
+      if (entryTypeSelect.value === 'Income') {
+        categorySelect.disabled = true;
+        categorySelect.value = ''; // clear selection if any
+      } else {
+        categorySelect.disabled = false;
+      }
+    }
+
+    // Run when page loads (for edit forms)
+    toggleCategory();
+
+    // Run when entry type changes
+    entryTypeSelect.addEventListener('change', toggleCategory);
+  });
+</script>
+
