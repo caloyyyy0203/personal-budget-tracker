@@ -1,5 +1,61 @@
+<!-- Position Summary at the Top -->
 <div class="summary">
-    <p><strong>Total Income:</strong> ₱{{ total_income }}</p>
-    <p><strong>Total Expenses:</strong> ₱{{ total_expense }}</p>
-    <p><strong>Balance:</strong> ₱{{ balance }}</p>
+    <div class="summary-item">
+        <p><strong>Total Income:</strong> ₱{{ total_income }}</p>
+    </div>
+    <div class="summary-item">
+        <p><strong>Total Expenses:</strong> ₱{{ total_expense }}</p>
+    </div>
+    <div class="summary-item">
+        <p><strong>Balance:</strong> ₱{{ balance }}</p>
+    </div>
 </div>
+
+<style>
+    /* Align summary container at the top */
+    .summary {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        margin-top: 20px;
+        position: relative;
+        top: 0; /* Ensure it stays at the top */
+        z-index: 10; /* Bring it above other content */
+    }
+
+    /* Individual summary items */
+    .summary-item {
+        background-color: white;
+        padding: 15px;
+        border-radius: 8px; /* Rounded corners for each item */
+        border: 4px solid #ccc; /* Border line for each item */
+        box-shadow: var(--shadow);
+        flex: 1; /* Make items grow equally */
+        text-align: center;
+    }
+
+    /* Summary Items Text Styling */
+    .summary-item p {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--primary-color);
+    }
+
+    .summary-item strong {
+        color: #333;
+    }
+
+    @media (max-width: 768px) {
+        /* Stack the items vertically on smaller screens */
+        .summary {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .summary-item {
+            width: 100%; /* Make items take full width on smaller screens */
+            margin-bottom: 10px; /* Add space between items on small screens */
+        }
+    }
+</style>

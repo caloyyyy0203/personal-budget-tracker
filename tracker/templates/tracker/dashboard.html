@@ -15,6 +15,9 @@
 <!-- Include Summary -->
 {% include 'tracker/includes/summary.html' %}
 
+<!-- Include Charts -->
+{% include 'tracker/includes/charts.html' %}
+
 <h3>Entries for {{ today|date:"F Y" }}</h3>
 
 <table border="1" cellpadding="5">
@@ -59,8 +62,7 @@
 <!-- Export Button (CSV download) -->
 <a href="{% url 'export_csv' %}" class="btn btn-secondary" style="margin-top: 20px;">Export as CSV</a>
 
-<!-- Include Charts -->
-{% include 'tracker/includes/charts.html' %}
+
 
 <!-- Pass data to JavaScript using json_script -->
 {{ category_names|json_script:"category_names" }}
