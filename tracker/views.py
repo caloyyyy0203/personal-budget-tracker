@@ -12,6 +12,8 @@ import calendar
 from datetime import datetime
 from decimal import Decimal
 from django.http import JsonResponse
+from django.db.models import Q
+
 
 
 def register(request):
@@ -46,7 +48,17 @@ def add_entry(request):
             initial_data['date'] = datetime(int(year), int(month), 1)  # First day of that month
         form = EntryForm(initial=initial_data)
 
-    return render(request, 'tracker/add_entry.html', {'form': form})
+    # Fetch categories
+    categories = Category.objects.filter(user=request.user) | Category.objects.filter(is_default=True)
+
+    income_categories = categories.filter(type='Income')
+    expense_categories = categories.filter(type='Expense')
+
+    return render(request, 'tracker/add_entry.html', {
+        'form': form,
+        'income_categories': income_categories,
+        'expense_categories': expense_categories,
+    })
 
 @login_required
 def edit_entry(request, entry_id):
@@ -229,3 +241,71 @@ def export_csv(request):
 
 def landing_page(request):
     return render(request, 'tracker/landing_page.html')
+
+from .models import Category
+from .forms import CategoryForm
+
+# List all categories
+@login_required
+def category_list(request):
+    categories = Category.objects.filter(Q(user=request.user) | Q(is_default=True))
+    return render(request, 'tracker/category_list.html', {'categories': categories})
+
+@login_required
+def get_categories(request):
+    entry_type = request.GET.get('entry_type')
+    
+    # Filter categories based on the entry type (Income/Expense)
+    if entry_type == 'Income':
+        categories = Category.objects.filter(user=request.user, type='Income') | Category.objects.filter(is_default=True, type='Income')
+    elif entry_type == 'Expense':
+        categories = Category.objects.filter(user=request.user, type='Expense') | Category.objects.filter(is_default=True, type='Expense')
+    else:
+        categories = []
+
+    # Prepare categories for the response
+    category_list = [{"id": category.id, "name": category.name} for category in categories]
+
+    return JsonResponse({'categories': category_list})
+
+# Create a category
+@login_required
+def category_create(request):
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            category = form.save(commit=False)
+            category.user = request.user  # Set the user!
+            category.save()
+            return redirect('category_list')
+    else:
+        form = CategoryForm()
+    return render(request, 'tracker/category_form.html', {'form': form})
+
+# Update a category
+@login_required
+def category_update(request, pk):
+    category = get_object_or_404(Category, pk=pk, user=request.user, is_default=False)
+    if request.method == 'POST':
+        form = CategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            form.save()
+            return redirect('category_list')
+    else:
+        form = CategoryForm(instance=category)
+    return render(request, 'tracker/category_form.html', {'form': form})
+
+# Delete a category
+@login_required
+def category_delete(request, pk):
+    category = get_object_or_404(Category, pk=pk, user=request.user)
+
+    # Check if any Entry uses this category
+    if Entry.objects.filter(category=category).exists():
+        messages.error(request, "Cannot delete this category because it is used in one or more entries.")
+        return redirect('category_list')
+
+    # If safe to delete
+    category.delete()
+    messages.success(request, "Category deleted successfully.")
+    return redirect('category_list')

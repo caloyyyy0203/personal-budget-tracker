@@ -16,4 +16,10 @@ urlpatterns = [
     path('set_budget/', views.set_budget, name='set_budget'),
     path('get_budget_for_category/<int:category_id>/', views.get_budget_for_category, name='get_budget_for_category'),
 
+
+    path('categories/', views.category_list, name='category_list'),
+    path('categories/create/', views.category_create, name='category_create'),
+    path('categories/<int:pk>/edit/', views.category_update, name='category_update'),
+    path('categories/<int:pk>/delete/', views.category_delete, name='category_delete'),
+    path('get_categories/', views.get_categories, name='get_categories'),
 ]
