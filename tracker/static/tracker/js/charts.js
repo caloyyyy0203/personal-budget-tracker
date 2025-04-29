@@ -4,7 +4,7 @@ var categoryTotals = JSON.parse(document.getElementById('category_totals').textC
 
 var ctxPie = document.getElementById('pieChart').getContext('2d');
 var pieChart = new Chart(ctxPie, {
-    type: 'pie',
+    type: 'doughnut', // Change pie to doughnut
     data: {
         labels: categoryNames,
         datasets: [{
@@ -14,6 +14,9 @@ var pieChart = new Chart(ctxPie, {
             borderColor: '#fff',
             borderWidth: 1
         }]
+    },
+    options: {
+        cutout: '70%' // Create the ring (this is for Chart.js v4)
     }
 });
 
@@ -33,5 +36,22 @@ var barChart = new Chart(ctxBar, {
             borderColor: ['#388E3C', '#D32F2F'],
             borderWidth: 1
         }]
+    },
+    options: {
+        scales: {
+            y: {
+                ticks: {
+                    display: false // Hide numbering
+                },
+                grid: {
+                    display: false // Hide grid lines (optional)
+                }
+            },
+            x: {
+                grid: {
+                    display: false // Hide x-axis grid lines (optional)
+                }
+            }
+        }
     }
 });
