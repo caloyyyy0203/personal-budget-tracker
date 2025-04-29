@@ -2,9 +2,15 @@
 var categoryNames = JSON.parse(document.getElementById('category_names').textContent);
 var categoryTotals = JSON.parse(document.getElementById('category_totals').textContent);
 
+// Pie chart for Income Breakdown by Category
+var incomeCategoryNames = JSON.parse(document.getElementById('income_category_names').textContent);
+var incomeCategoryTotals = JSON.parse(document.getElementById('income_category_totals').textContent);
+
 var ctxPie = document.getElementById('pieChart').getContext('2d');
+
+// Create Expense Pie Chart initially
 var pieChart = new Chart(ctxPie, {
-    type: 'doughnut', // Change pie to doughnut
+    type: 'doughnut',
     data: {
         labels: categoryNames,
         datasets: [{
@@ -16,7 +22,7 @@ var pieChart = new Chart(ctxPie, {
         }]
     },
     options: {
-        cutout: '70%' // Create the ring (this is for Chart.js v4)
+        cutout: '70%'
     }
 });
 
@@ -41,17 +47,30 @@ var barChart = new Chart(ctxBar, {
         scales: {
             y: {
                 ticks: {
-                    display: false // Hide numbering
+                    display: false
                 },
                 grid: {
-                    display: false // Hide grid lines (optional)
+                    display: false
                 }
             },
             x: {
                 grid: {
-                    display: false // Hide x-axis grid lines (optional)
+                    display: false
                 }
             }
         }
     }
 });
+
+// Function to switch charts
+function switchChart(chartType) {
+    if (chartType === 'income') {
+        pieChart.data.labels = incomeCategoryNames;
+        pieChart.data.datasets[0].data = incomeCategoryTotals;
+        pieChart.update();
+    } else if (chartType === 'expense') {
+        pieChart.data.labels = categoryNames;
+        pieChart.data.datasets[0].data = categoryTotals;
+        pieChart.update();
+    }
+}
