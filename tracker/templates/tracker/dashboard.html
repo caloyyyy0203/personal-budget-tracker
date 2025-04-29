@@ -34,6 +34,7 @@
         <th>Type</th>
         <th>Category</th>
         <th>Amount</th>
+        <th>Notes</th>
         <th>Actions</th> <!-- Added header for Edit/Delete buttons -->
     </tr>
     {% for entry in entries %}
@@ -43,6 +44,7 @@
         <td>{{ entry.entry_type }}</td>
         <td>{{ entry.category.name }}</td>
         <td>₱{{ entry.amount }}</td>
+        <td> {{ entry.notes }} </td>
         <td>
             <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editEntryModal{{ entry.id }}">
               Edit
