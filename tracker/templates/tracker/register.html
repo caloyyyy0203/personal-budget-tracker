@@ -1,7 +1,147 @@
-<h2>Register</h2>
-<form method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Sign Up</button>
-</form>
-<p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+<div class="outer-container">
+  <div class="login-container">
+    <h2>Register</h2>
+    <form method="POST">
+      {% csrf_token %}
+      
+      <!-- Username Field -->
+      <label for="username">Username:</label>
+      <input type="text" name="username" id="username" required>
+      <div id="usernameReminder" class="reminder"></div>
+
+      <!-- Password Field -->
+      <label for="password">Password:</label>
+      <input type="password" name="password" id="password" required>
+      <div id="passwordReminder" class="reminder"></div>
+
+      <!-- Password Confirmation Field -->
+      <label for="password_confirmation">Password Confirmation:</label>
+      <input type="password" name="password_confirmation" id="password_confirmation" required>
+      <div id="passwordConfirmationReminder" class="reminder"></div>
+      
+      <button type="submit">Sign Up</button>
+    </form>
+    <p class="register-link">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+  </div>
+</div>
+
+<script>
+  document.getElementById('username').addEventListener('focus', function() {
+    document.getElementById('usernameReminder').innerText = "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.";
+  });
+
+  document.getElementById('username').addEventListener('blur', function() {
+    document.getElementById('usernameReminder').innerText = '';
+  });
+
+  document.getElementById('password').addEventListener('focus', function() {
+    document.getElementById('passwordReminder').innerText = "Your password can’t be too similar to your other personal information.\nYour password must contain at least 8 characters.\nYour password can’t be a commonly used password.\nYour password can’t be entirely numeric.";
+  });
+
+  document.getElementById('password').addEventListener('blur', function() {
+    document.getElementById('passwordReminder').innerText = '';
+  });
+
+  document.getElementById('password_confirmation').addEventListener('focus', function() {
+    document.getElementById('passwordConfirmationReminder').innerText = "Enter the same password as before, for verification.";
+  });
+
+  document.getElementById('password_confirmation').addEventListener('blur', function() {
+    document.getElementById('passwordConfirmationReminder').innerText = '';
+  });
+</script>
+
+<style>
+  body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e6f0f5;
+  font-family: Arial, sans-serif;
+}
+
+.outer-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 30px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: left; /* Align header to the left */
+  margin-bottom: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align form fields to the left */
+  width: 100%;
+}
+
+.form p {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+input {
+  width: 100%; /* Make inputs fill the container */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+button {
+  width: 100%; /* Button width matches the inputs */
+  padding: 10px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+.register-link {
+  text-align: left; /* Align the register link to the left */
+  margin-top: 1.5em;
+}
+
+.register-link a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+.reminder {
+  color: #555;
+  font-size: 14px;
+  margin-top: 5px;
+  font-style: italic;
+}
+
+
+</style>
