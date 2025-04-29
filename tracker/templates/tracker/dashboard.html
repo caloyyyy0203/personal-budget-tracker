@@ -4,14 +4,17 @@
 {% block content %}
 <h2>Dashboard</h2>
 
-<!-- Fixed the Add Entry button -->
-<button type="button" class="btn btn-primary" style="margin-bottom: 20px;" data-bs-toggle="modal" data-bs-target="#addEntryModal">
-    + Add Entry for {{ month_name }} {{ year }}
-</button>
+{% if exceeded_categories %}
+    {% include 'tracker/includes/warning.html'%}
+{% endif %}
 
+<button type="button" class="btn btn-primary" style="margin-bottom: 20px;" data-bs-toggle="modal" data-bs-target="#addEntryModal"> + Add Entry for {{ month }}/{{ year }} </button>
 <!-- Include Add Entry Modal -->
 {% include 'tracker/modals/add_entry_modal.html' %}
 
+<button type="button" class="btn btn-primary" style="margin-bottom: 20px;" data-bs-toggle="modal" data-bs-target="#setBudgetModal"> Set Budget </button>
+
+{% include 'tracker/modals/set_budget_modal.html'%}
 <!-- Include Filter Form -->
 {% include 'tracker/includes/filters.html' %}
 
