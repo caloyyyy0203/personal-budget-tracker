@@ -13,7 +13,11 @@
                         <label for="category" class="form-label">Category</label>
                         <select class="form-select" id="category" name="category" required>
                             {% for category in categories %}
-                                <option value="{{ category.id }}" {% if category.id == current_budget.category.id %}selected{% endif %}>{{ category.name }}</option>
+                                {% if category.type == "Expense" %}
+                                    <option value="{{ category.id }}" {% if category.id == current_budget.category.id %}selected{% endif %}>
+                                        {{ category.name }}
+                                    </option>
+                                {% endif %}
                             {% endfor %}
                         </select>
                     </div>
