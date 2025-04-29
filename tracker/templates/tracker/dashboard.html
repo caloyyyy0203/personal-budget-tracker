@@ -1,22 +1,33 @@
 {% extends 'tracker/base.html' %}
 {% load static %}
-
 {% block content %}
+<div class="container_2">
 <h2>Dashboard</h2>
 
-{% if exceeded_categories %}
-    {% include 'tracker/includes/warning.html'%}
+{% if request.user.is_authenticated %}
+<p class="greeting">Hello, {{ request.user.username }}!</p>
 {% endif %}
+</div>
 
+
+<div class="container_3">
+<div>
 <button type="button" class="btn btn-primary" style="margin-bottom: 20px;" data-bs-toggle="modal" data-bs-target="#addEntryModal"> + Add Entry for {{ month }}/{{ year }} </button>
 <!-- Include Add Entry Modal -->
 {% include 'tracker/modals/add_entry_modal.html' %}
 
 <button type="button" class="btn btn-primary" style="margin-bottom: 20px;" data-bs-toggle="modal" data-bs-target="#setBudgetModal"> Set Budget </button>
 
+</div>
+<!-- warning -->
+{% if exceeded_categories %}
+    {% include 'tracker/includes/warning.html'%}
+{% endif %}
+
 {% include 'tracker/modals/set_budget_modal.html'%}
 <!-- Include Filter Form -->
 {% include 'tracker/includes/filters.html' %}
+</div>
 
 <!-- Include Summary -->
 {% include 'tracker/includes/summary.html' %}
@@ -27,7 +38,7 @@
 <!-- Fixed the table title -->
 <h3>Entries for {{ month_name }} {{ year }}</h3>
 
-<table border="1" cellpadding="5">
+<table class="entries-table" border="1" cellpadding="5">
     <tr>
         <th>Date</th>
         <th>Title</th>

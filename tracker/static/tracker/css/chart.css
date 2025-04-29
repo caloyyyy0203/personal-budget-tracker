@@ -1,19 +1,19 @@
 .chart-wrapper {
-    display: flex; /* Use flexbox to align charts horizontally */
-    justify-content: center; /* Center the chart containers */
-    gap: 20px; /* Space between the charts */
-    margin-bottom: 40px; /* Add some margin below the charts */
-    flex-wrap: wrap; /* Allow charts to wrap on smaller screens */
+    display: flex; 
+    justify-content: center; 
+    gap: 10em; 
+    margin-bottom: 40px; 
+    flex-wrap: wrap; 
+ 
 }
 
-/* Container to align title and chart vertically */
 .chart-container {
-    display: flex; /* Align title and chart vertically */
-    flex-direction: column; /* Stack title and canvas vertically */
-    align-items: center; /* Center the content */
-    justify-content: center; /* Ensure charts are centered */
-    gap: 10px; /* Space between title and chart */
-    max-width: 650px; /* Limit the width of the container */
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;
+    gap: 10px; 
+    max-width: 650px; 
 }
 
 /* Style for the heading */
