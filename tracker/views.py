@@ -28,7 +28,6 @@ def register(request):
 
 @login_required
 def add_entry(request):
-    # Get month and year from the GET parameters (if any)
     month = request.GET.get('month')
     year = request.GET.get('year')
 
@@ -40,10 +39,9 @@ def add_entry(request):
             entry.save()
             return redirect('dashboard')
     else:
-        # If month and year are provided, set initial date
         initial_data = {}
         if month and year:
-            initial_data['date'] = datetime(int(year), int(month), 1)  # First day of that month
+            initial_data['date'] = datetime(int(year), int(month), 1)
         form = EntryForm(initial=initial_data)
 
     return render(request, 'tracker/add_entry.html', {'form': form})
@@ -68,7 +66,7 @@ def delete_entry(request, id):
     
     if request.method == "POST":
         entry.delete()
-        return redirect('dashboard')  # Redirect to the dashboard or the relevant page
+        return redirect('dashboard')  
     
     return redirect('dashboard')
 
@@ -79,22 +77,18 @@ def set_budget(request):
         amount = request.POST.get('budget')
 
         try:
-            amount = Decimal(amount)  # Convert to Decimal
+            amount = Decimal(amount)
         except (ValueError, TypeError):
-            # Handle invalid amount input
             return render(request, 'tracker/modals/set_budget.html', {'error': 'Invalid amount', 'categories': Category.objects.all()})
 
         category = Category.objects.get(id=category_id)
 
-        # Check if a budget already exists for this user and category
         current_budget = Budget.objects.filter(user=request.user, category=category).first()
 
         if current_budget:
-            # Update existing budget
             current_budget.amount = amount
             current_budget.save()
         else:
-            # Create a new budget entry
             Budget.objects.create(
                 user=request.user,
                 category=category,
@@ -105,14 +99,11 @@ def set_budget(request):
 
         return redirect('dashboard')
 
-    # For GET request, just return the form with categories
     categories = Category.objects.all()
     return render(request, 'tracker/modals/set_budget_modal.html', {'categories': categories})
 
-
 @login_required
 def get_budget_for_category(request, category_id):
-    # Fetch the budget for the selected category and user
     current_budget = Budget.objects.filter(user=request.user, category_id=category_id).first()
     
     if current_budget:
@@ -120,13 +111,11 @@ def get_budget_for_category(request, category_id):
     else:
         return JsonResponse({'amount': 0})
 
-
 @login_required
 def dashboard(request):
     today = timezone.now()
     now = datetime.now()
 
-    # Get selected month/year from GET parameters
     selected_month = request.GET.get('month')
     selected_year = request.GET.get('year')
 
@@ -137,10 +126,8 @@ def dashboard(request):
         month = today.month
         year = today.year
 
-    # NEW: Get the month name (January, February, etc.)
     month_name = calendar.month_name[month]
 
-    # Filter entries based on selected month and year
     entries = Entry.objects.filter(
         user=request.user,
         date__month=month,
@@ -151,19 +138,22 @@ def dashboard(request):
     total_expense = entries.filter(entry_type='Expense').aggregate(Sum('amount'))['amount__sum'] or 0
     balance = total_income - total_expense
 
-    # Summarize expenses by category
     expense_categories = entries.filter(entry_type='Expense')
     expense_by_category = expense_categories.values('category__name').annotate(total_amount=Sum('amount'))
+
+    income_categories = entries.filter(entry_type='Income')
+    income_by_category = income_categories.values('category__name').annotate(total_amount=Sum('amount'))
+
+    income_category_names = [entry['category__name'] for entry in income_by_category]
+    income_category_totals = [entry['total_amount'] for entry in income_by_category]
 
     exceeded_categories = []
     for category in expense_by_category:
         category_name = category['category__name']
         total_expense_in_category = category['total_amount']
         
-        # Get the budget for this category
         budget = Budget.objects.filter(user=request.user, category__name=category_name, month=month, year=year).first()
         
-        # Check if there's a budget and if the total expenses exceed the budget
         if budget and total_expense_in_category > budget.amount:
             exceeded_categories.append({
                 'category_name': category_name,
@@ -174,17 +164,15 @@ def dashboard(request):
     category_names = [entry['category__name'] for entry in expense_by_category]
     category_totals = [entry['total_amount'] for entry in expense_by_category]
 
-    # Prepare months manually
     months = [
         ('1', 'January'), ('2', 'February'), ('3', 'March'), ('4', 'April'),
         ('5', 'May'), ('6', 'June'), ('7', 'July'), ('8', 'August'),
         ('9', 'September'), ('10', 'October'), ('11', 'November'), ('12', 'December')
     ]
     current_year = today.year
-    start_year = 2020  # Adjust based on your needs
+    start_year = 2020
     categories = Category.objects.all() 
     current_budget = Budget.objects.filter(user=request.user, month=month, year=year).first()
-
 
     context = {
         'total_income': total_income,
@@ -194,13 +182,15 @@ def dashboard(request):
         'today': today,
         'month': month,
         'year': year,
-        'month_name': month_name,  # <-- Add to context
+        'month_name': month_name,
         'months': months,
         'year_range': range(start_year, current_year + 1),
         'category_names': category_names,
         'category_totals': category_totals,
         'income': total_income,
         'expense': total_expense,
+        'income_category_names': income_category_names, 
+        'income_category_totals': income_category_totals,  
         'categories': categories,
         'now': now,
         'current_budget': current_budget,
@@ -213,7 +203,6 @@ def dashboard(request):
 def export_csv(request):
     entries = Entry.objects.filter(user=request.user)
 
-    # Create the HttpResponse with CSV content type
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="entries.csv"'
 
@@ -221,7 +210,6 @@ def export_csv(request):
     writer.writerow(['Date', 'Title', 'Type', 'Category', 'Amount'])
 
     for entry in entries:
-        # Check if category exists and set it to 'Unknown' if None
         category_name = entry.category.name if entry.category else 'Unknown'
         writer.writerow([entry.date, entry.title, entry.entry_type, category_name, entry.amount])
 
