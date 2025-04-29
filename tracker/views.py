@@ -39,6 +39,7 @@ def add_entry(request):
             entry = form.save(commit=False)
             entry.user = request.user
             entry.save()
+            messages.success(request, "Entry created successfully.")
             return redirect('dashboard')
     else:
         initial_data = {}
@@ -66,6 +67,7 @@ def edit_entry(request, entry_id):
         form = EntryForm(request.POST, instance=entry)
         if form.is_valid():
             form.save()
+            messages.success(request, "Entry updated successfully.")
             return redirect('dashboard') 
     else:
         form = EntryForm(instance=entry)
@@ -78,6 +80,7 @@ def delete_entry(request, id):
     
     if request.method == "POST":
         entry.delete()
+        messages.success(request, "Entry deleted successfully.")
         return redirect('dashboard')  
     
     return redirect('dashboard')
@@ -265,6 +268,7 @@ def category_create(request):
             category = form.save(commit=False)
             category.user = request.user  # Set the user!
             category.save()
+            messages.success(request, "Category created successfully.")
             return redirect('category_list')
     else:
         form = CategoryForm()
@@ -278,6 +282,7 @@ def category_update(request, pk):
         form = CategoryForm(request.POST, instance=category)
         if form.is_valid():
             form.save()
+            messages.success(request, "Category updated successfully.")       
             return redirect('category_list')
     else:
         form = CategoryForm(instance=category)
@@ -290,7 +295,7 @@ def category_delete(request, pk):
 
     # Check if any Entry uses this category
     if Entry.objects.filter(category=category).exists():
-        messages.error(request, "Cannot delete this category because it is used in one or more entries.")
+        messages.warning(request, "Cannot delete this category because it is used in one or more entries.")
         return redirect('category_list')
 
     # If safe to delete
