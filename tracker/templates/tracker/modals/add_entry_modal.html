@@ -60,6 +60,19 @@
             {% endif %}
           </div>
 
+          <div class="mb-3">
+            <label for="notes" class="form-label">Notes</label>
+            <textarea class="form-control" name="notes" id="notes" rows="3">{{ form.notes.value }}</textarea>
+            {% if form.notes.errors %}
+              <ul class="error-list">
+                {% for error in form.notes.errors %}
+                  <li class="error">{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+          
+
           {% if form.errors %}
             <ul class="error-list">
               {% for error in form.non_field_errors %}
