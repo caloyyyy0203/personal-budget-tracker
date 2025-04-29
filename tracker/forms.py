@@ -1,5 +1,6 @@
 from django import forms
 from .models import Entry
+from .models import Category
 
 class EntryForm(forms.ModelForm):
     class Meta:
@@ -32,3 +33,10 @@ class EntryForm(forms.ModelForm):
         if entry_type == 'Expense' and category is None:
             raise forms.ValidationError('Category is required for expenses.')
 
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['name', 'type']
+
+        

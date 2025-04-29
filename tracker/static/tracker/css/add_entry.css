@@ -18,17 +18,7 @@ body {
   padding: 0;
 }
 
-/* Parallax background */
-/* .container {
-  padding: 30px;
-  background-image: url('../images/scales.png');
-  height: auto;
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 1450px;
-  position: relative; 
-}*/
+
 
 .container_entry {
   max-width: 400px;
@@ -153,5 +143,3 @@ body {
       width: 90% !important;  /* 90% width for mobile screens */
   }
 }
-
-

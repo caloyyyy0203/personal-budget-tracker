@@ -1,0 +1,90 @@
+/* dashboard */
+.container_2{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.container_3{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+/* sidebar menu */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    margin-left: 20px;
+    background-color: #eb0000;
+    padding: 20px;
+    
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar nav ul li {
+    margin-bottom: 15px;
+}
+
+.sidebar nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.logout-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.greeting {
+    margin-top: 30px;
+    font-style: italic;
+    color: #555;
+}
+
+/* table */
+.entries-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid #0581fd;
+    margin-top: 20px;
+    background-color: #fff;
+}
+
+.entries-table th,
+.entries-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.entries-table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.entries-table tr:last-child td {
+    border-bottom: none;
+}
+
+.entries-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* footer */
+.footer{
+    margin-left: 10em;
+}
