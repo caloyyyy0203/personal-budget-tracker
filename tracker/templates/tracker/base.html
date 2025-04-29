@@ -16,6 +16,7 @@
         <nav>
             <ul>
                 <li><a href="{% url 'dashboard' %}">Home</a></li>
+                <li><a href="{% url 'category_list' %}">Categories</a></li>
                 <li><a href="{% url 'add_entry' %}">Add Entry</a></li>
                 <li>
                     <form method="post" action="{% url 'logout' %}" style="display:inline;">
@@ -26,9 +27,13 @@
                         </button>
                     </form>
                 </li>
+                {% if request.user.is_authenticated %}
+                    <li style="margin-left:20px;">Hello, {{ request.user.username }}!</li>
+                {% endif %}
             </ul>
         </nav>
     </header>
+    
 
     <div class="container">
         {% block content %}

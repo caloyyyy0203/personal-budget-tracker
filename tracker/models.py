@@ -14,10 +14,21 @@ class Budget(models.Model):
         return f"{self.user.username} - {self.category.name} - {self.month}/{self.year} - ${self.amount}"
 
 class Category(models.Model):
+    INCOME = 'Income'
+    EXPENSE = 'Expense'
+
+    CATEGORY_TYPES = [
+        (INCOME, 'Income'),
+        (EXPENSE, 'Expense'),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)  # <-- Allow NULL for defaults
     name = models.CharField(max_length=100)
+    type = models.CharField(max_length=7, choices=CATEGORY_TYPES)
+    is_default = models.BooleanField(default=False)  # <-- New field!
 
     def __str__(self):
-        return self.name
+        return f"{self.name} ({self.type})"
 
 class Entry(models.Model):
     ENTRY_TYPES = (
