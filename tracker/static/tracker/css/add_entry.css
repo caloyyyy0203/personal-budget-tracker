@@ -144,12 +144,7 @@ body {
 }
 
 /* Style for the Pie and Bar charts */
-.chart {
-  width: 80% !important;  /* Set the width to 80% of the container */
-  height: 300px !important;  /* Fixed height */
-  margin: 0 auto;  /* Center the chart */
-  max-width: 600px;  /* Limit the maximum width */
-}
+
 
 /* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
@@ -158,4 +153,5 @@ body {
       width: 90% !important;  /* 90% width for mobile screens */
   }
 }
+
 

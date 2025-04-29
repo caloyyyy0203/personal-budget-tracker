@@ -8,6 +8,7 @@ from django.db.models import Sum
 from django.utils import timezone
 from django.http import HttpResponse
 import csv
+import calendar
 from datetime import datetime
 from decimal import Decimal
 from django.http import JsonResponse
@@ -124,6 +125,7 @@ def get_budget_for_category(request, category_id):
 def dashboard(request):
     today = timezone.now()
     now = datetime.now()
+
     # Get selected month/year from GET parameters
     selected_month = request.GET.get('month')
     selected_year = request.GET.get('year')
@@ -134,6 +136,9 @@ def dashboard(request):
     else:
         month = today.month
         year = today.year
+
+    # NEW: Get the month name (January, February, etc.)
+    month_name = calendar.month_name[month]
 
     # Filter entries based on selected month and year
     entries = Entry.objects.filter(
@@ -171,18 +176,9 @@ def dashboard(request):
 
     # Prepare months manually
     months = [
-        ('1', 'January'),
-        ('2', 'February'),
-        ('3', 'March'),
-        ('4', 'April'),
-        ('5', 'May'),
-        ('6', 'June'),
-        ('7', 'July'),
-        ('8', 'August'),
-        ('9', 'September'),
-        ('10', 'October'),
-        ('11', 'November'),
-        ('12', 'December')
+        ('1', 'January'), ('2', 'February'), ('3', 'March'), ('4', 'April'),
+        ('5', 'May'), ('6', 'June'), ('7', 'July'), ('8', 'August'),
+        ('9', 'September'), ('10', 'October'), ('11', 'November'), ('12', 'December')
     ]
     current_year = today.year
     start_year = 2020  # Adjust based on your needs
@@ -198,8 +194,9 @@ def dashboard(request):
         'today': today,
         'month': month,
         'year': year,
-        'months': months,  # Pass months list
-        'year_range': range(start_year, current_year + 1),  # Pass year range
+        'month_name': month_name,  # <-- Add to context
+        'months': months,
+        'year_range': range(start_year, current_year + 1),
         'category_names': category_names,
         'category_totals': category_totals,
         'income': total_income,

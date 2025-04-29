@@ -24,7 +24,8 @@
 <!-- Include Charts -->
 {% include 'tracker/includes/charts.html' %}
 
-<h3>Entries for {{ today|date:"F Y" }}</h3>
+<!-- Fixed the table title -->
+<h3>Entries for {{ month_name }} {{ year }}</h3>
 
 <table border="1" cellpadding="5">
     <tr>
@@ -33,6 +34,7 @@
         <th>Type</th>
         <th>Category</th>
         <th>Amount</th>
+        <th>Actions</th> <!-- Added header for Edit/Delete buttons -->
     </tr>
     {% for entry in entries %}
     <tr>
@@ -42,35 +44,30 @@
         <td>{{ entry.category.name }}</td>
         <td>₱{{ entry.amount }}</td>
         <td>
-            <!-- Edit Button -->
             <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editEntryModal{{ entry.id }}">
               Edit
             </button>
-
             <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteEntryModal{{ entry.id }}">
                 Delete
             </button>
         </td>
-
     </tr>
 
     <!-- Include the Edit and Delete Modals for each entry -->
     {% include 'tracker/modals/edit_entry_modal.html' %}
     {% include 'tracker/modals/delete_entry_modal.html' %}
-
+    
     {% empty %}
     <tr>
-        <td colspan="5">No entries this month.</td>
+        <td colspan="6">No entries this month.</td> <!-- Fixed colspan to 6 -->
     </tr>
     {% endfor %}
 </table>
 
-<!-- Export Button (CSV download) -->
+<!-- Export Button -->
 <a href="{% url 'export_csv' %}" class="btn btn-secondary" style="margin-top: 20px;">Export as CSV</a>
 
-
-
-<!-- Pass data to JavaScript using json_script -->
+<!-- Pass data to JavaScript -->
 {{ category_names|json_script:"category_names" }}
 {{ category_totals|json_script:"category_totals" }}
 {{ income|json_script:"income" }}
