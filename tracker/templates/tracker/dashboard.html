@@ -34,9 +34,13 @@
 
 <!-- Include Charts -->
 {% include 'tracker/includes/charts.html' %}
-
+<div class="container_4" style="background-color: red; border: 5px solid black;">
+    <div class="table_title">
 <!-- Fixed the table title -->
 <h3>Entries for {{ month_name }} {{ year }}</h3>
+<!-- Export Button -->
+<a href="{% url 'export_csv' %}" class="btn btn-secondary" style="margin-top: 20px;">Export as CSV</a>
+</div>
 
 <table class="entries-table" border="1" cellpadding="5">
     <tr>
@@ -76,9 +80,8 @@
     </tr>
     {% endfor %}
 </table>
+</div>
 
-<!-- Export Button -->
-<a href="{% url 'export_csv' %}" class="btn btn-secondary" style="margin-top: 20px;">Export as CSV</a>
 
 
 <!-- Pass data to JavaScript -->
