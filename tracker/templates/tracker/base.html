@@ -18,19 +18,25 @@
 
 </head>
 
-<body>
+<body class="body-bg">
 
     <aside class="sidebar">
         <nav>
             <ul>
-                <li><a href="{% url 'dashboard' %}">Home</a></li>
-                <li><a href="{% url 'category_list' %}">Categories</a></li>
-                <li><a href="{% url 'add_entry' %}">Add Entry</a></li>
+                <li><a href="{% url 'add_entry' %}">
+                    <img src="{% static '/tracker/images/profile.png' %}" alt="Profile" width="40" height="40"></a></li>
                 <li>
+                <li><a href="{% url 'dashboard' %}">
+                    <img src="{% static '/tracker/images/home.png' %}" alt="Home" width="40" height="40">
+                </a></li>
+                <li><a href="{% url 'category_list' %}">
+                    <img src="{% static '/tracker/images/category.png' %}" alt="Category" width="40" height="40">
+                </a></li>
+                
                     <form method="post" action="{% url 'logout' %}" style="display:inline;">
                         {% csrf_token %}
                         <button type="submit" class="logout-btn">
-                            Logout
+                            <img src="{% static '/tracker/images/logout.png' %}" alt="Logout" width="40" height="40">
                         </button>
                     </form>
                 </li>

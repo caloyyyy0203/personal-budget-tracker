@@ -10,7 +10,13 @@
     align-items: center;
 }
 
-
+.body-bg {
+    background-image: url('/static/tracker/images/background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    min-height: 100vh;
+}
 
 .table_title{
     display: flex;
@@ -24,10 +30,15 @@
     left: 0;
     top: 0;
     height: 100vh;
+    width: 5em;
+    margin-top: 2em;
     margin-left: 20px;
-    background-color: #eb0000;
-    padding: 20px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6));
     
+    padding: 20px;
+    border-top-right-radius: 100px;
+    border-top-left-radius: 100px;
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); /* For Safari */
 }
 
 .sidebar nav ul {
