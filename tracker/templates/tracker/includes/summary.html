@@ -1,24 +1,24 @@
 <!-- Position Summary at the Top -->
 <div class="summary">
     <div class="summary-item">
-        <p><strong>Total Income:</strong> ₱{{ total_income }}</p>
+        <p><strong>Total Income:</strong></br>₱{{ total_income }}</p>
     </div>
     <div class="summary-item">
-        <p><strong>Total Expenses:</strong> ₱{{ total_expense }}</p>
+        <p><strong>Total Expenses:</strong></br> ₱{{ total_expense }}</p>
     </div>
     <div class="summary-item">
-        <p><strong>Balance:</strong> ₱{{ balance }}</p>
+        <p><strong>Balance:</strong></br> ₱{{ balance }}</p>
     </div>
 </div>
 
 <style>
+    
     .summary {
         justify-items: center;
         height: 15em;
         display: flex;
         justify-content: space-between;
-        gap: 50px;
-        margin-top: 2em;
+        gap: 2em;
         margin-bottom: 2em;
         position: relative;
         z-index: 10; 
@@ -27,7 +27,7 @@
     /* Individual summary items */
     .summary-item {
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
         height: 100%;
         border-radius: 8px;
@@ -36,7 +36,6 @@
         border-radius: 8px;
         box-shadow: var(--shadow);
         flex: 1; /* Make items grow equally */
-        text-align: center;
     }
 
     /* Summary Items Text Styling */

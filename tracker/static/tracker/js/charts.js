@@ -17,14 +17,26 @@ var pieChart = new Chart(ctxPie, {
             label: 'Expense Breakdown',
             data: categoryTotals,
             backgroundColor: ['#FF6347', '#FF9F40', '#FFCD47', '#FF6A6A', '#FFC0CB'],
-            borderColor: '#fff',
-            borderWidth: 1
+            borderColor: 'transparent',
         }]
     },
     options: {
-        cutout: '70%'
+        cutout: '50%', // size of the hole in the center
+
+
+        plugins: {
+            legend: {
+                position: 'left',
+                labels: {
+                    font: {
+                        size: 18 // controls legend text size
+                    }
+                }
+            }
+        }
     }
 });
+
 
 // Bar Chart for Monthly Income vs Expenses
 var monthlyIncome = JSON.parse(document.getElementById('income').textContent);
@@ -40,10 +52,16 @@ var barChart = new Chart(ctxBar, {
             data: [monthlyIncome, monthlyExpense],
             backgroundColor: ['#4CAF50', '#F44336'],
             borderColor: ['#388E3C', '#D32F2F'],
-            borderWidth: 1
+            borderWidth: 0
         }]
     },
     options: {
+        cutout: '20%',
+        plugins: {
+            legend: {
+                position: 'left' // ← Puts the legend on the left side
+            }
+        },
         scales: {
             y: {
                 ticks: {
@@ -59,6 +77,9 @@ var barChart = new Chart(ctxBar, {
                 }
             }
         }
+    
+            
+        
     }
 });
 
