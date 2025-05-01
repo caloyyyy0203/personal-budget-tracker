@@ -1,4 +1,4 @@
-<form method="get" style="margin-bottom: 20px;">
+<form class="form_container" method="get" style="margin-bottom: 20px;">
     <label for="month">Month:</label>
     <select name="month" id="month">
         {% for m, name in months %}
@@ -13,5 +13,39 @@
         {% endfor %}
     </select>
 
-    <button type="submit">Filter</button>
+    <button class="filter_btn" type="submit">Search</button>
 </form>
+<style>
+    label{
+        font-family: "Urbanist", sans-serif;
+        font-size: 24px;
+        margin-left: 0.5em;
+    }
+
+    select{
+        width: 10em;
+        padding: 8px; /* Adds some padding for better spacing */
+        margin-left: 0.5em;
+        
+    }
+
+    .filter_btn {
+        font-family: 'Urbanist',sans-serif;
+    width: 10em; /* Expands the width of the button */
+    padding: 8px; /* Adds some padding for better spacing */
+    border-radius: 8px; /* Adds border radius to the button */
+    background-color: #4CAF50; /* Sets a background color */
+    color: white; /* Sets the text color to white */
+    font-size: 18px; /* Adjusts the font size */
+    border: none; /* Removes the border */
+    cursor: pointer; /* Changes the cursor to a pointer */
+    margin-left: 0.5em;
+    transition: background-color 0.3s; /* Adds smooth transition effect */
+}
+
+/* Hover effect for the button */
+.filter_btn:hover {
+    background-color: #45a049; /* Changes the background color on hover */
+}   
+</style>
+

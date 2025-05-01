@@ -10,7 +10,6 @@
 }
 
 body {
-  font-family: 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--text-color);
   line-height: 1.6;
   background-color: #f9f9f9;
@@ -80,6 +79,8 @@ body {
   box-shadow: 0 0 0 2px rgba(74, 111, 165, 0.1);
 }
 
+
+
 .btn {
   padding: 12px 20px;
   border: none;
@@ -104,6 +105,10 @@ body {
 
 .btn-submit:active {
   transform: translateY(0);
+}
+
+.button{
+  background-color: #4a6fa5;
 }
 
 @media (max-width: 768px) {

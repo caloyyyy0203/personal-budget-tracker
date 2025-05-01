@@ -8,7 +8,7 @@ class Budget(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
     month = models.IntegerField(default=datetime.datetime.now().month)
     year = models.IntegerField(default=datetime.datetime.now().year)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    amount = models.DecimalField(max_digits=50, decimal_places=2)
 
     def __str__(self):
         return f"{self.user.username} - {self.category.name} - {self.month}/{self.year} - ${self.amount}"

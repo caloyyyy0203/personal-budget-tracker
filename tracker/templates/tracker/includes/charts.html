@@ -1,14 +1,14 @@
-<div class="chart-wrapper" style="background-color: red; border: 5px solid black; padding: 20px;">
+<div class="chart-wrapper">
 
     <!-- Pie Chart Section -->
-    <div class="chart-container" style="background-color: rgb(251, 173, 173); border: 5px solid black; margin-bottom: 20px;">
+    <div class="chart-container">
         <div class="chart-title" style="display: flex; justify-content: space-between; align-items: center;">
-            <h3 id="pieChartTitle"> Breakdown by Category</h3>
+            <h3 id="pieChartTitle">Breakdown by Category</h3>
             <div>
                 <label for="chartTypeSelector" style="margin-right: 10px;"></label>
                 <select id="chartTypeSelector" onchange="switchChart(this.value)" class="form-select" style="width: 150px; display: inline-block;">
-                    <option value="expense">Expense </option>
-                    <option value="income">Income </option>
+                    <option value="expense">Expense</option>
+                    <option value="income">Income</option>
                 </select>
             </div>
         </div>
@@ -16,7 +16,7 @@
     </div>
 
     <!-- Bar Chart Section -->
-    <div class="chart-container" style="background-color: rgb(0, 8, 255); border: 5px solid black;">
+    <div class="chart-container">
         <div class="chart-title">
             <h3>Monthly Income vs Expenses</h3>
         </div>
@@ -25,30 +25,69 @@
 </div>
 
 <style>
-    #chartTypeSelector {
-        width: 5em; /* Extend the width of the dropdown */
-        border: none; /* Remove the border */
-        background-color: #ff0000; /* Set a background color for the dropdown */
-        color: #333; /* Change text color */
-        font-size: 14px; /* Adjust font size */
-        border-radius: 5px; /* Round the corners */
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-        cursor: pointer; /* Change cursor to indicate it's clickable */
-        transition: all 0.3s ease; /* Smooth transition for hover effect */
+.chart-wrapper {
+    display: flex;
+    gap: 1em;
+    margin-bottom: 2em;
+    flex-wrap: wrap;
+}
+
+.chart-container {
+    padding: 1.2em;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6));
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(20px);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-title h3 {
+    font-family: "Urbanist", sans-serif;
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Pie chart size - fixed and not stretched */
+#pieChart {
+    width: 400px !important;
+    height: 400px !important;
+}
+
+/* Bar chart size */
+#barChart {
+    width: 800px !important;
+    height: 400px !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .chart-wrapper {
+        flex-direction: column;
+        align-items: center;
     }
 
-    #chartTypeSelector:focus {
-        outline: none; /* Remove the focus outline */
-        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a blue shadow on focus */
+    .chart-container {
+        width: 100%;
     }
 
-    #chartTypeSelector option {
-        background-color: #fff; /* Set the background of options */
-        color: #333; /* Set the text color for options */
+    #pieChart {
+        width: 100% !important;
+        max-width: 300px;
+        height: auto !important;
+        aspect-ratio: 1 / 1;
     }
 
-    /* Optional: Hover effect for the dropdown */
-    #chartTypeSelector:hover {
-        background-color: #e2e2e2; /* Change background color when hovering */
+    #barChart {
+        width: 100% !important;
+        height: 300px !important;
     }
+
+    .chart-title h3 {
+        font-size: 20px;
+    }
+}
 </style>
