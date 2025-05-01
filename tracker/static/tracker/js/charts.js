@@ -16,7 +16,7 @@ var pieChart = new Chart(ctxPie, {
         datasets: [{
             label: 'Expense Breakdown',
             data: categoryTotals,
-            backgroundColor: ['#FF6347', '#FF9F40', '#FFCD47', '#FF6A6A', '#FFC0CB'],
+            backgroundColor: ['#0D4AAC', '#EC1824', '#FEBD01', '#FF5448', '#005EF6', '#FFD14D'],
             borderColor: 'transparent',
         }]
     },
@@ -29,8 +29,12 @@ var pieChart = new Chart(ctxPie, {
                 position: 'left',
                 labels: {
                     font: {
-                        size: 18 // controls legend text size
-                    }
+                        size: 14 // controls legend text size
+                    },
+                    boxWidth: 20,     // Width of the legend box
+                    boxHeight: 20,    // Height of the legend box (effective in recent versions)
+                    pointStyle: 'circle', // You can also try 'rectRounded', 'triangle', etc.
+                    usePointStyle: true
                 }
             }
         }
@@ -50,8 +54,7 @@ var barChart = new Chart(ctxBar, {
         datasets: [{
             label: 'Amount',
             data: [monthlyIncome, monthlyExpense],
-            backgroundColor: ['#4CAF50', '#F44336'],
-            borderColor: ['#388E3C', '#D32F2F'],
+            backgroundColor: ['#0D4AAC', '#EC1824'],
             borderWidth: 0
         }]
     },
@@ -59,7 +62,16 @@ var barChart = new Chart(ctxBar, {
         cutout: '20%',
         plugins: {
             legend: {
-                position: 'left' // ← Puts the legend on the left side
+                position: 'left',
+                labels: {
+                    font: {
+                        size: 14 // controls legend text size
+                    },
+                    boxWidth: 20,     // Width of the legend box
+                    boxHeight: 20,    // Height of the legend box (effective in recent versions)
+                    pointStyle: 'circle', // You can also try 'rectRounded', 'triangle', etc.
+                    usePointStyle: true
+                }
             }
         },
         scales: {
@@ -89,16 +101,25 @@ function switchChart(chartType) {
 
     if (chartType === 'income') {
         pieChart.data.labels = incomeCategoryNames;
-        pieChart.data.datasets[0].data = incomeCategoryTotals;
-        pieChart.data.datasets[0].label = 'Income Breakdown';
+        pieChart.data.datasets = [{
+            label: 'Income Breakdown',
+            data: incomeCategoryTotals,
+            backgroundColor: ['#0D4AAC', '#EC1824', '#FEBD01',],
+            borderColor: 'transparent',
+        }];
         title.textContent = 'Income Breakdown by Category';
-        pieChart.update();
-    } else if (chartType === 'expense') {
+    } else {
         pieChart.data.labels = categoryNames;
-        pieChart.data.datasets[0].data = categoryTotals;
-        pieChart.data.datasets[0].label = 'Expense Breakdown';
+        pieChart.data.datasets = [{
+            label: 'Expense Breakdown',
+            data: categoryTotals,
+            backgroundColor: [ '#FF5448', '#005EF6', '#FFD14D'],
+            borderColor: 'transparent',
+        }];
         title.textContent = 'Expense Breakdown by Category';
-        pieChart.update();
     }
+
+    pieChart.update();
 }
+
 

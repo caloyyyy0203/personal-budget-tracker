@@ -1,12 +1,12 @@
 <!-- Position Summary at the Top -->
 <div class="summary">
-    <div class="summary-item">
+    <div class="summary-item-income">
         <p><strong>Total Income:</strong></br>₱{{ total_income }}</p>
     </div>
-    <div class="summary-item">
+    <div class="summary-item-expense">
         <p><strong>Total Expenses:</strong></br> ₱{{ total_expense }}</p>
     </div>
-    <div class="summary-item">
+    <div class="summary-item-balance">
         <p><strong>Balance:</strong></br> ₱{{ balance }}</p>
     </div>
 </div>
@@ -25,28 +25,81 @@
     }
 
     /* Individual summary items */
-    .summary-item {
+    .summary-item-income {
         display: flex;
         justify-content: flex-start;
         align-items: center;
         height: 100%;
         border-radius: 8px;
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6));
-        -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); /* For Safari */        padding: 15px;
+        background: linear-gradient(to bottom, rgba(117, 107, 144, 0.6), rgba(255, 255, 255, 0.6));
+        -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); /* For Safari */       
         border-radius: 8px;
-        box-shadow: var(--shadow);
+        box-shadow: 0 4px 8px rgba(0, 0, 50, 0.1); /* x-offset, y-offset, blur, color */
         flex: 1; /* Make items grow equally */
     }
 
     /* Summary Items Text Styling */
-    .summary-item p {
+    .summary-item-income p {
+        padding-left: 30px;
         font-family: "Urbanist", sans-serif;
         margin: 0;
         font-size: 2.5rem;
-        color: var(--primary-color);
+        color: white;
     }
 
-    .summary-item strong {
+    .summary-item-income strong {
+        color: #333;
+    }
+
+    .summary-item-expense {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        height: 100%;
+        border-radius: 8px;
+        background: linear-gradient(to bottom, rgba(117, 107, 144, 0.6), rgba(255, 255, 255, 0.6));
+        -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); /* For Safari */       
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 50, 0.1); /* x-offset, y-offset, blur, color */
+        flex: 1; /* Make items grow equally */
+    }
+
+    /* Summary Items Text Styling */
+    .summary-item-expense p {
+        padding-left: 30px;
+        font-family: "Urbanist", sans-serif;
+        margin: 0;
+        font-size: 2.5rem;
+        color: white;
+    }
+
+    .summary-item-expense strong {
+        color: #333;
+    }
+
+    .summary-item-balance {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        height: 100%;
+        border-radius: 8px;
+        background: linear-gradient(to bottom right, rgba(247, 70, 70, 0.4), rgba(61, 2, 255, 0.4));
+        -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); /* For Safari */       
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 50, 0.1); /* x-offset, y-offset, blur, color */
+        flex: 1; /* Make items grow equally */
+    }
+
+    /* Summary Items Text Styling */
+    .summary-item-balance p {
+        padding-left: 30px;
+        font-family: "Urbanist", sans-serif;
+        margin: 0;
+        font-size: 2.5rem;
+        color: white;
+    }
+
+    .summary-item-balance strong {
         color: #333;
     }
 

@@ -1,7 +1,7 @@
 /* dashboard */
 
 body {
-    background: rgb(255, 0, 0);
+    background: rgb(255, 255, 255);
   }
 
 .container_2{
@@ -9,6 +9,7 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 .container_3{
@@ -17,8 +18,46 @@ body {
     align-items: center;
 }
 
+.btn_first{
+  margin-bottom: 20px;  
+ font-family: 'Urbanist',sans-serif;
+ font-size: 16px;
+ padding: 6px; 
+width: 12.5em; 
+border-radius: 100px; 
+background-color: #0D4AAC; 
+color: white; 
+border: none; 
+cursor: pointer; 
+transition: background-color 0.3s;
+}
+
+.btn_first2{
+  margin-left: 0.2em;
+  margin-bottom: 20px;  
+ font-family: 'Urbanist',sans-serif;
+ font-size: 16px;
+ padding: 6px; 
+width: 10em; 
+border-radius: 100px; 
+background-color: #0D4AAC; 
+color: white; 
+border: none; 
+cursor: pointer; 
+transition: background-color 0.3s;
+}
+
+.btn_first:hover {
+  background-color: #ffffff; 
+  color: #0D4AAC;
+}  
+.btn_first2:hover {
+  background-color: #ffffff; 
+  color: #0D4AAC;
+}  
+
 .container_4{
-    padding: 10px;
+  padding: 20px;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6));
         -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(20px); /* For Safari */     
         border-radius: 8px;
@@ -50,6 +89,24 @@ body {
     background-repeat: no-repeat;   /* Prevent image repetition */
     background-position: center;    /* Center the image */
 }
+.sidebar a,
+.sidebar button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+.sidebar img {
+  transition: transform 0.3s ease;
+}
+
+.sidebar a:hover img,
+.sidebar button:hover img {
+  transform: scale(1.3);
+}
 
 
 
@@ -69,7 +126,8 @@ body {
     width: 5em;
     margin-top: 2em;
     margin-left: 2em;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6));
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2));
+    box-shadow: 0 4px 8px rgba(0, 0, 50, 0.1); /* x-offset, y-offset, blur, color */
     padding: 20px;
     border-top-right-radius: 100px;
     border-top-left-radius: 100px;
@@ -116,11 +174,13 @@ body {
 /* table */
 .entries-table {
     width: 100%;
-    border-radius: 20px;
+    border-radius: 8px;
     -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(20px); /* For Safari */     
     border-collapse: separate;
     border-spacing: 0;
     margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 50, 0.1); /* x-offset, y-offset, blur, color */
+
 }
 
 .entries-table th,
@@ -132,9 +192,29 @@ body {
 
 
 .entries-table tr:hover {
-    background-color: #000000;
+    background-color: #0D4AAC;
     border-radius: 20px;
+    color:rgb(255, 255, 255);
 }
+
+.income-badge {
+  background-color: #0D4AAC;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.9em;
+  display: inline-block;
+}
+
+.expense-badge {
+  background-color: #EC1824;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.9em;
+  display: inline-block;
+}
+
 
 
 /* footer */
@@ -161,9 +241,10 @@ body {
   }
 
   .yellow-square {
-    width: 400px;
-    height: 400px;
-    background: linear-gradient(to bottom right, #fbc02d, #fff8e1);
+    width: 800px;
+    height: 500px;
+    border-radius: 50%;
+    background: linear-gradient(to bottom right, #ff0000, #f8c10e);
     animation: move1 12s infinite alternate ease-in-out;
   }
 
@@ -171,39 +252,32 @@ body {
     width: 500px;
     height: 500px;
     border-radius: 50%;
-    background: radial-gradient(circle at center, #ff5252, #ffcdd2);
+    background: linear-gradient(to bottom left, #ff0000,#f8e86f, #ffffff);
     animation: move2 10s infinite alternate ease-in-out;
   }
 
   .blue-semicircle-left {
-    width: 300px;
+    width: 700px;
     height: 300px;
-    background: radial-gradient(circle at right, #1e88e5, #bbdefb);
+    background: radial-gradient(circle at right, #460274, #1e88e5, #bbdefb);
     border-top-left-radius: 100px;
     border-bottom-left-radius: 100px;
     animation: move3 14s infinite alternate ease-in-out;
   }
 
   .red-circle-bottom-left {
-    width: 400px;
-    height: 400px;
+    width: 500px;
+    height: 500px;
     border-radius: 50%;
-    background: linear-gradient(to right, #ef5350, #ffcdd2);
+    background: linear-gradient(to right,  #ff4d00, #ef5350, #ffffff);
     animation: move4 11s infinite alternate ease-in-out;
   }
 
-  .blue-quarter-top-right {
-    width: 150px;
-    height: 150px;
-    background: radial-gradient(circle at top left, #1565c0, #90caf9);
-    border-top-left-radius: 100%;
-    animation: move5 13s infinite alternate ease-in-out;
-  }
 
   .yellow-small-circle {
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, #ffd000, #f64600, #ffffff);
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(to top, #3945f3, #f64600, #ffffff);
     border-radius: 50%;
     animation: move6 9s infinite alternate ease-in-out;
   }
