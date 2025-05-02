@@ -1,1 +1,1 @@
-web: gunicorn PERSONAL-BUDGET-TRACKER.wsgi:application
+web: gunicorn config.wsgi:application

@@ -26,7 +26,11 @@ SECRET_KEY = os.environ.get('SECRET_KEY', "django-insecure-4(cfgqk(d8@#*uvus1bts
 DEBUG = os.environ.get('DEBUG', 'true').lower() == 'true'
 
 # Configure allowed hosts based on environment
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'personal-budget-tracker-g26y.onrender.com',
+    'localhost',
+    '127.0.0.1',
+]
 if not DEBUG:
     ALLOWED_HOSTS.extend(['*', '.render.com'])
 
