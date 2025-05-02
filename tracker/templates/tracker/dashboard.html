@@ -6,13 +6,10 @@
     <div class="shape yellow-square"></div>
     <div class="shape red-circle"></div>
     <div class="shape blue-semicircle-left"></div>
-    <div class="shape red-circle-bottom-left"></div>
-    <div class="shape blue-quarter-top-right"></div>
-    <div class="shape yellow-small-circle"></div>
   </div>
   
 <div class="container_2">
-<h2 style="font-family: 'Urbanist', sans-serif; font-size: 24px;"> Dashboard</h2>
+<h2 style="font-family: 'Urbanist', sans-serif; font-size: 24px; font-weight: bold;"> Dashboard</h2>
 
 {% if request.user.is_authenticated %}
 <h2 style="font-family: 'Urbanist', sans-serif; font-size: 24px;">Hello, {{ request.user.username }}!</h2>
@@ -25,7 +22,6 @@
 <button type="button" class="btn_first" data-bs-toggle="modal" data-bs-target="#addEntryModal"> + Add Entry for {{ month }}/{{ year }} </button>
 <!-- Include Add Entry Modal -->
 {% include 'tracker/modals/add_entry_modal.html' %}
-
 <button type="button" class="btn_first2" style="margin-bottom: 20px; font-family: 'Urbanist', sans-serif;" data-bs-toggle="modal" data-bs-target="#setBudgetModal"> Set Budget </button>
 
 </div>

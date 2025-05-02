@@ -18,7 +18,7 @@
         height: 15em;
         display: flex;
         justify-content: space-between;
-        gap: 2em;
+        gap: 1em;
         margin-bottom: 2em;
         position: relative;
         z-index: 10; 
@@ -31,10 +31,10 @@
         align-items: center;
         height: 100%;
         border-radius: 8px;
-        background: linear-gradient(to bottom, rgba(117, 107, 144, 0.6), rgba(255, 255, 255, 0.6));
-        -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); /* For Safari */       
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgb(180, 192, 255, 0.6));
+        -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(5px); /* For Safari */       
         border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 50, 0.1); /* x-offset, y-offset, blur, color */
+        box-shadow: 0 4px 8px rgba(169, 169, 255, 0.1); /* x-offset, y-offset, blur, color */
         flex: 1; /* Make items grow equally */
     }
 
@@ -45,10 +45,12 @@
         margin: 0;
         font-size: 2.5rem;
         color: white;
+        text-shadow:#050404;
+
     }
 
     .summary-item-income strong {
-        color: #333;
+        color: #1D1D1D;
     }
 
     .summary-item-expense {
@@ -57,7 +59,7 @@
         align-items: center;
         height: 100%;
         border-radius: 8px;
-        background: linear-gradient(to bottom, rgba(117, 107, 144, 0.6), rgba(255, 255, 255, 0.6));
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgb(180, 192, 255, 0.6));
         -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); /* For Safari */       
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 50, 0.1); /* x-offset, y-offset, blur, color */
@@ -71,10 +73,11 @@
         margin: 0;
         font-size: 2.5rem;
         color: white;
+        text-shadow:#050404;
     }
 
     .summary-item-expense strong {
-        color: #333;
+        color: #1D1D1D;
     }
 
     .summary-item-balance {
@@ -83,7 +86,7 @@
         align-items: center;
         height: 100%;
         border-radius: 8px;
-        background: linear-gradient(to bottom right, rgba(247, 70, 70, 0.4), rgba(61, 2, 255, 0.4));
+        background: linear-gradient(to bottom right, rgb(247, 70, 70), rgba(255, 255, 80, 0.4));
         -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); /* For Safari */       
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 50, 0.1); /* x-offset, y-offset, blur, color */
@@ -100,7 +103,7 @@
     }
 
     .summary-item-balance strong {
-        color: #333;
+        color: #1D1D1D;
     }
 
     @media (max-width: 768px) {

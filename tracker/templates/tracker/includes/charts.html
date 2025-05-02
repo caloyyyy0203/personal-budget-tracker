@@ -8,9 +8,9 @@
                 <label for="chartTypeSelector" style="margin-right: 10px;"></label>
                 <select id="chartTypeSelector" onchange="switchChart(this.value)"
                  style="width: 150px; display: inline-block;
-                 border-width: 0;
                  padding: 8px;
-                 background-color: white;">
+                 background-color: white;
+                 border-radius: 10px;"> 
                     <option value="expense">Expense</option>
                     <option value="income">Income</option>
                 </select>
@@ -46,6 +46,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 50, 0.1); /* x-offset, y-offset, blur, color */
 }
 
 .chart-title h3 {

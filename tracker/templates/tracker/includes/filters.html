@@ -1,13 +1,13 @@
 <form class="form_container" method="get" style="margin-bottom: 20px;">
     <label for="month">Month:</label>
-    <select name="month" id="month">
+    <select style="border-radius: 10px; padding-right: 2px;"  name="month" id="month">
         {% for m, name in months %}
-            <option value="{{ m }}" {% if m == month|stringformat:"s" %}selected{% endif %}>{{ name }}</option>
+            <option  value="{{ m }}" {% if m == month|stringformat:"s" %}selected{% endif %}>{{ name }}</option>
         {% endfor %}
     </select>
 
     <label for="year">Year:</label>
-    <select name="year" id="year">
+    <select style="border-radius: 10px; padding-right: 2px;" name="year" id="year">
         {% for y in year_range %}
             <option value="{{ y }}" {% if y == year %}selected{% endif %}>{{ y }}</option>
         {% endfor %}

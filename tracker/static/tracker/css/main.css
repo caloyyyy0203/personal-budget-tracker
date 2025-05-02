@@ -9,7 +9,7 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-top: 1em;
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
 }
 
 .container_3{
@@ -58,9 +58,10 @@ transition: background-color 0.3s;
 
 .container_4{
   padding: 20px;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6));
-        -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(20px); /* For Safari */     
-        border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 50, 0.1); /* x-offset, y-offset, blur, color */
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6));
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(20px); /* For Safari */     
+  border-radius: 8px;
 }
 
 .btn_export {
@@ -124,9 +125,9 @@ transition: background-color 0.3s;
     top: 0;
     height: 100vh;
     width: 5em;
-    margin-top: 2em;
+    margin-top: 1em;
     margin-left: 2em;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2));
+    background: linear-gradient(to bottom, rgba(255, 132, 0, 0.2), rgba(28, 28, 248, 0.1), rgba(255, 255, 255, 0.2));
     box-shadow: 0 4px 8px rgba(0, 0, 50, 0.1); /* x-offset, y-offset, blur, color */
     padding: 20px;
     border-top-right-radius: 100px;
@@ -166,6 +167,7 @@ transition: background-color 0.3s;
 
 .greeting {
     font-family: 'Urbanist',sans-serif;
+    font-style: italic;
     font-size: 2em;
     margin-top: 30px;
     color: #555;
@@ -175,12 +177,9 @@ transition: background-color 0.3s;
 .entries-table {
     width: 100%;
     border-radius: 8px;
-    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(20px); /* For Safari */     
     border-collapse: separate;
     border-spacing: 0;
     margin-top: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 50, 0.1); /* x-offset, y-offset, blur, color */
-
 }
 
 .entries-table th,
@@ -193,7 +192,6 @@ transition: background-color 0.3s;
 
 .entries-table tr:hover {
     background-color: #0D4AAC;
-    border-radius: 20px;
     color:rgb(255, 255, 255);
 }
 
@@ -219,6 +217,7 @@ transition: background-color 0.3s;
 
 /* footer */
 .footer{
+  margin-top: 1em;
     margin-left: 10em;
 }
 
@@ -242,15 +241,15 @@ transition: background-color 0.3s;
 
   .yellow-square {
     width: 800px;
-    height: 500px;
-    border-radius: 50%;
-    background: linear-gradient(to bottom right, #ff0000, #f8c10e);
+    height: 800px;
+    border-radius: 100%;
+    background: linear-gradient(to bottom right, #ff0000,  #f8c10e, #ffffff);
     animation: move1 12s infinite alternate ease-in-out;
   }
 
   .red-circle {
-    width: 500px;
-    height: 500px;
+    width: 900px;
+    height: 900px;
     border-radius: 50%;
     background: linear-gradient(to bottom left, #ff0000,#f8e86f, #ffffff);
     animation: move2 10s infinite alternate ease-in-out;
@@ -258,8 +257,8 @@ transition: background-color 0.3s;
 
   .blue-semicircle-left {
     width: 700px;
-    height: 300px;
-    background: radial-gradient(circle at right, #460274, #1e88e5, #bbdefb);
+    height: 900px;
+    background: radial-gradient(circle at right, #460274, #1e88e5, #bbdefb, #ffffff);
     border-top-left-radius: 100px;
     border-bottom-left-radius: 100px;
     animation: move3 14s infinite alternate ease-in-out;
