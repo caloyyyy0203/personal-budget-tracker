@@ -1,87 +1,207 @@
 {% load static %}
 
-    <style>
-        h3{
-            margin-inline-start: 0;
-            margin-block-start: 0;
-            margin-block-end: 0.5em;
-        }
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+<div class="background-shapes">
+    <div class="shape red-circle"></div>
+    <div class="shape blue-semicircle-left"></div>
+  </div>
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items:flex-start;
-            padding: 1rem 2rem;
-            background-color: #f8f9fa;
-        }
-
-        .site-name {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            padding-left: 40px;
-        }
-
-        .moto {
-            font-size: 100px;
-        }
-        
-
-        .buttons {
-            margin-top: 20px;
-            display: flex;
-            gap: 1rem;
-        }
-
-        .register-btn {
-            padding: 10px 20px;
-            border: 2px solid #007bff;
-            border-radius: 5px;
-            color: #007bff;
-            text-decoration: none;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .register-btn:hover {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        .login-btn {
-            padding: 10px 20px;
-            text-decoration: none;
-            color: #43c900;
-        }
-    </style>
-    <body>
-
-    <div class="header">
-        <div class="site-name">Budgetarian</div>
+<div class="main">
+  <!-- Rotated card/rectangle with text and buttons inside -->
+  <div class="card-container">
+    <div class="rotated-card">
+      <h3 class="moto">Start tracking your budget</h3>
+      <div class="buttons">
+        <a href="{% url 'register' %}" class="register-btn">Get Started</a>
+        <a href="{% url 'login' %}" class="login-btn">Login</a>
+      </div>
     </div>
+  </div>
 
-    <div class="main">
-        <h3 class="moto">Smart tracking for </br>
-             your budget</h3>
+  <!-- Wallet image at bottom -->
+  <div class="wallet-wrapper">
+    <img src="{% static 'tracker/images/wallet_2.png' %}" alt="Wallet Image" class="wallet-img">
+  </div>
+</div>
+<style>
+    body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-color: #f4f4f4;
+}
 
-        <div class="buttons">
-            <a href="{% url 'register' %}" class="register-btn">Get Started</a>
-            <a href="{% url 'login' %}" class="login-btn">Login</a>
-        </div>
-    </div>
+.main {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+}
 
-</body>
+/* Wallet Image fills bottom width */
+.wallet-wrapper {
+    margin-bottom: -25em;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  transition: transform 0.4s ease;
+  z-index: 1;
 
+}
+
+.wallet-img {
+  width: 100%;
+  max-width: 910px;
+  height: auto;
+}
+
+/* Card Container */
+.card-container {
+    margin-bottom: 12em;
+  position: absolute;
+  bottom: 100px;
+  width: 100%;
+  height: 30%;
+  display: flex;
+  justify-content: center;
+  transition: transform 0.4s ease;
+  z-index: 0;
+}
+
+/* Rotated Card with Text */
+.rotated-card {
+background: linear-gradient(to left, rgba(255, 124, 47, 0.6), rgba(149, 167, 245, 0.6));
+  width: 490px;
+  height: 250px;
+  padding: 20px;
+  border-radius: 15px;
+  transform: rotate(-10deg);
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  
+}
+
+/* Text and buttons */
+.moto {
+    color: white;
+    font-family: "Urbanist", sans-serif;
+    font-size: 32px;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 0.5em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.register-btn,
+.login-btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.register-btn {
+    font-family: "Urbanist", sans-serif;
+    background-color: #0D4AAC;
+  border-radius: 80px;
+  color: #ffffff;
+}
+
+.register-btn:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.login-btn {
+    font-family: "Urbanist", sans-serif;
+  color: #ffffff;
+}
+
+/* Hover Effect - Move both wallet and card up */
+
+.card-container:hover {
+  transform: translateY(-70px);
+}
+
+/* background shapes */
+.background-shapes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .shape {
+    position: absolute;
+    filter: blur(30px);
+    pointer-events: none;
+  }
+
+  
+
+  .red-circle {
+    width: 900px;
+    height: 900px;
+    border-radius: 50%;
+    background: linear-gradient(to bottom left, #ff0000,#f8e86f, #ffffff);
+    animation: move2 10s infinite alternate ease-in-out;
+  }
+
+  .blue-semicircle-left {
+    width: 700px;
+    height: 900px;
+    background: radial-gradient(circle at right, #460274, #1e88e5, #bbdefb, #ffffff);
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+    animation: move3 14s infinite alternate ease-in-out;
+  }
+
+
+  @keyframes move1 {
+    0%   { top: 10%; left: 10%; transform: rotate(0deg); }
+    100% { top: 30%; left: 50%; transform: rotate(360deg); }
+  }
+
+  @keyframes move2 {
+    0%   { top: 50%; left: 40%; transform: scale(1); }
+    100% { top: 20%; left: 60%; transform: scale(1.1); }
+  }
+
+  @keyframes move3 {
+    0%   { top: 20%; left: 0%; }
+    100% { top: 60%; left: 20%; }
+  }
+
+  @keyframes move4 {
+    0%   { bottom: 0%; left: 10%; }
+    100% { bottom: 30%; left: 30%; }
+  }
+
+  @keyframes move5 {
+    0%   { top: 10%; right: 5%; transform: rotate(0deg); }
+    100% { top: 40%; right: 20%; transform: rotate(180deg); }
+  }
+
+  @keyframes move6 {
+    0%   { top: 40%; right: 5%; }
+    100% { top: 60%; right: 15%; }
+  }
+
+</style>

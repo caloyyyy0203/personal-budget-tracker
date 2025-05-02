@@ -1,3 +1,19 @@
+{% load static %}
+
+<div class="login-container">
+  <form class="form" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+  </form>
+  <p class="register-link">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+  
+</div>
+
+<div class="wallet-wrapper">
+  <img src="{% static 'tracker/images/login_bg.png' %}" alt="Wallet Image" class="wallet-img">
+</div>
+
 
   <style>
     body {
@@ -8,22 +24,37 @@
   justify-content: center;
   align-items: center;
   background-color: #e6f0f5;
-  font-family: Arial, sans-serif;
+  background: url('/static/tracker/images/log_in_bg.png') no-repeat center center fixed;
+  background-size: cover;
+  font-family: "Urbanist", sans-serif;
 }
 
 .login-container {
   width: 100%;
   max-width: 400px;
   padding: 30px;
-  background-color: #ffffff;
-  border: 1px solid #ccc;
+  background: linear-gradient(to right, rgba(255, 114, 114, 0.6), rgba(85, 142, 255, 0.6),rgba(255, 255, 255, 0.6));
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 4px 8px rgba(0, 0, 50, 0.1); /* x-offset, y-offset, blur, color */
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: "Urbanist", sans-serif;
+  color: #ffffff;
+  margin-bottom: 1em;
+  transition: transform 0.4s ease;
+
+
 }
 
 h2 {
   text-align: center;
-  margin-bottom: 20px;
+color: #ffffff;
+    font-size: 1.5em;
+    margin-block-start: 0.2em;
+    margin-block-end: 0.2em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+
 }
 
 .form {
@@ -34,13 +65,20 @@ h2 {
 
 .form p {
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+  display: block;
+    margin-block-start: 0em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
 }
 
 input {
+  margin-top: 0.5em;
   width: 100%; /* same width as container */
-  padding: 10px;
-  border: 1px solid #ccc;
+  padding: 8px;
+  background-color: #ffffff;
+  border: 10px #0D4AAC;
   border-radius: 6px;
   font-size: 16px;
   box-sizing: border-box;
@@ -48,27 +86,29 @@ input {
 
 button {
   width: 100%; /* match input width */
-  padding: 10px;
-  background-color: #3498db;
+  padding: 14px;
+  background-color: #0D4AAC;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 100px;
   cursor: pointer;
   font-size: 16px;
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 button:hover {
-  background-color: #2980b9;
+  background-color: #ffffff;
+  color: #0D4AAC;
 }
 
 .register-link {
   text-align: center;
   margin-top: 1.5em;
+  margin-left: 1em;
 }
 
 .register-link a {
-  color: #3498db;
+  color: #003487;
   text-decoration: none;
 }
 
@@ -76,14 +116,43 @@ button:hover {
   text-decoration: underline;
 }
 
+.wallet-wrapper {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  transition: transform 0.4s ease;
+  z-index: 1;
+  margin-bottom: 5em;
+
+}
+
+.wallet-img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+
+}
+@keyframes wiggle {
+  0% { transform: rotate(0deg); }
+  15% { transform: rotate(-5deg); }
+  30% { transform: rotate(5deg); }
+  45% { transform: rotate(-4deg); }
+  60% { transform: rotate(4deg); }
+  75% { transform: rotate(-2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.wallet-wrapper:hover .wallet-img {
+  animation: wiggle 0.6s ease-in-out;
+}
+
+
+.login-container:hover {
+  transform: translateY(-130px);
+}
+
+
   </style>
 
-  <div class="login-container">
-    <h2>Login</h2>
-    <form class="form" method="POST">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Login</button>
-    </form>
-    <p class="register-link">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
-  </div>
