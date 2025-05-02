@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "PERSONAL-BUDGET-TRACKER.wsgi.application"
+WSGI_APPLICATION = "personal-budget-tracker.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
