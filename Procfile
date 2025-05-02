@@ -1,0 +1,1 @@
+web: gunicorn PERSONAL-BUDGET-TRACKER.wsgi:application
