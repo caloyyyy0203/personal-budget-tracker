@@ -140,8 +140,6 @@
 <!-- Load your custom charts.js file with versioning -->
 <script src="{% static 'tracker/js/charts.js' %}?v=1.1"></script>
 
-{% endblock %}
-
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
@@ -188,5 +186,7 @@
     showPage(currentPage);
   });
 </script>
+
+{% endblock %}
 
   
