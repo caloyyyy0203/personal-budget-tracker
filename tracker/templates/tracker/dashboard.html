@@ -48,25 +48,32 @@
 <h2 style="font-family: 'Urbanist',sans-serif; font-size: 20px; justify-content: center; margin-bottom: 0;
 "  >Entries for {{ month_name }} {{ year }}</h2>
 <!-- Export Button -->
-<div class="table-controls" style="text-align: right; margin-bottom: 10px;">
-  <button id="prevBtn" class="paginate-btn">&lt;</button>
-  <button id="nextBtn" class="paginate-btn">&gt;</button>
+<!-- Pagination Buttons with Icons -->
+<div class="table-controls" style="text-align: right; margin-bottom: 10px; margin-left: 2em; display: flex; align-items: center; gap: 10px;">
+  <button id="prevBtn" class="paginate-btn">
+    <img src="{% static 'tracker/images/prev.png' %}" alt="Previous" style="width: 16px; height: 16px; vertical-align: middle;" />
+  </button>
+  <button id="nextBtn" class="paginate-btn">
+    <img src="{% static 'tracker/images/next.png' %}" alt="Next" style="width: 16px; height: 16px; vertical-align: middle;" />
+  </button>
 
-<a class="export" href="{% url 'export_csv' %}" style="
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #FEBD01;
-    color: rgb(0, 0, 0);
-    font-size: 14px;
-    font-family: 'Urbanist', sans-serif;
-    text-decoration: none; /* Removes underline */
-    border: none;
-    border-radius: 100px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    cursor: pointer;">
-    Export as CSV
-</a>
+  <a class="export" href="{% url 'export_csv' %}" style="
+      display: inline-block;
+      margin-left: auto;
+      padding: 10px 20px;
+      background-color: #FEBD01;
+      color: rgb(0, 0, 0);
+      font-size: 14px;
+      font-family: 'Urbanist', sans-serif;
+      text-decoration: none;
+      border: none;
+      border-radius: 100px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      cursor: pointer;">
+      Export as CSV
+  </a>
 </div>
+
 
 </div>
 
@@ -186,6 +193,25 @@
     showPage(currentPage);
   });
 </script>
+
+<style>
+.paginate-btn {
+  padding: 8px;
+  background-color: transparent;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paginate-btn:hover{
+  background-color: white;
+}
+
+
+</style>
 
 {% endblock %}
 
