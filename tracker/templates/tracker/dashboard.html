@@ -48,6 +48,10 @@
 <h2 style="font-family: 'Urbanist',sans-serif; font-size: 20px; justify-content: center; margin-bottom: 0;
 "  >Entries for {{ month_name }} {{ year }}</h2>
 <!-- Export Button -->
+<div class="table-controls" style="text-align: right; margin-bottom: 10px;">
+  <button id="prevBtn" class="paginate-btn">&lt;</button>
+  <button id="nextBtn" class="paginate-btn">&gt;</button>
+
 <a class="export" href="{% url 'export_csv' %}" style="
     display: inline-block;
     padding: 10px 20px;
@@ -62,71 +66,54 @@
     cursor: pointer;">
     Export as CSV
 </a>
-
+</div>
 
 </div>
 
-<table class="entries-table" cellpadding="5">
-    <tr>
-        <th>Date</th>
-        <th>Title</th>
-        <th>Type</th>
-        <th>Category</th>
-        <th>Amount</th>
-        <th>Notes</th>
-        <th>Actions</th> <!-- Added header for Edit/Delete buttons -->
-    </tr>
-    {% for entry in entries %}
-    <tr>
-        <td style="font-weight: bold;">{{ entry.date }}</td>
-        <td><a style="text-decoration:inherit; color:#000000;"  href="{% url 'edit_entry' entry.id %}">{{ entry.title }}</a></td>
-        <td>
-            <span class="{% if entry.entry_type == 'Income' %}income-badge{% else %}expense-badge{% endif %}">
-              {{ entry.entry_type }}
-            </span>
-          </td>
-                  <td>{{ entry.category.name }}</td>
-        <td style="font-weight: bold;">₱{{ entry.amount }}</td>
-        <td style="font-style: italic;"> {{ entry.notes }} </td>
-        <td>
-            <button
-            type="button"
-            style="border: 0px; background-color: transparent; padding: 5px;"
-            onmouseover="this.children[0].style.transform='scale(1.2)'"
-            onmouseout="this.children[0].style.transform='scale(1)'"
-            data-bs-toggle="modal"
-            data-bs-target="#editEntryModal{{ entry.id }}"
-            data-bs-toggle="tooltip"  
-            title="Edit Entry"  
-          >
-            <img src="{% static 'tracker/images/edit (2).png' %}" alt="Edit" style="width: 24px; height: 24px;" />
-          </button>
-          
+<div id="table-wrapper">
+  
 
-          <button
-  type="button"
-  style="border: 0px; background-color: transparent; padding: 5px;"
-  onmouseover="this.children[0].style.transform='scale(1.2)'"
-  onmouseout="this.children[0].style.transform='scale(1)'"
-  data-bs-toggle="modal"
-  data-bs-target="#deleteEntryModal{{ entry.id }}"
-  data-bs-toggle="tooltip"  
-  title="Delete Entry" 
->
-  <img src="{% static 'tracker/images/delete (2).png' %}" alt="Delete" style="width: 24px; height: 24px;" />
-</button>
+  <table class="entries-table" cellpadding="5">
+      <thead>
+          <tr>
+              <th>Date</th>
+              <th>Title</th>
+              <th>Type</th>
+              <th>Category</th>
+              <th>Amount</th>
+              <th>Notes</th>
+              <th>Actions</th>
+          </tr>
+      </thead>
+      <tbody id="entryTableBody">
+          {% for entry in entries %}
+          <tr class="entry-row">
+              <td style="font-weight: bold;">{{ entry.date }}</td>
+              <td><a style="text-decoration:inherit; color:#000000;"  href="{% url 'edit_entry' entry.id %}">{{ entry.title }}</a></td>
+              <td>
+                  <span class="{% if entry.entry_type == 'Income' %}income-badge{% else %}expense-badge{% endif %}">
+                    {{ entry.entry_type }}
+                  </span>
+              </td>
+              <td>{{ entry.category.name }}</td>
+              <td style="font-weight: bold;">₱{{ entry.amount }}</td>
+              <td style="font-style: italic;">{{ entry.notes }}</td>
+              <td>
+                  <button type="button" style="border: 0px; background-color: transparent; padding: 5px;"
+                      data-bs-toggle="modal" data-bs-target="#editEntryModal{{ entry.id }}">
+                      <img src="{% static 'tracker/images/edit (2).png' %}" alt="Edit" style="width: 24px; height: 24px;" />
+                  </button>
+                  <button type="button" style="border: 0px; background-color: transparent; padding: 5px;"
+                      data-bs-toggle="modal" data-bs-target="#deleteEntryModal{{ entry.id }}">
+                      <img src="{% static 'tracker/images/delete (2).png' %}" alt="Delete" style="width: 24px; height: 24px;" />
+                  </button>
+              </td>
+          </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+</div>
 
-
-        </td>
-    </tr>
-    
-    {% empty %}
-    <tr>
-        <td colspan="6">No entries this month.</td> <!-- Fixed colspan to 6 -->
-    </tr>
-
-    {% endfor %}
-</table>
 
 
 </div>
@@ -161,6 +148,44 @@
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
       return new bootstrap.Tooltip(tooltipTriggerEl);
     });
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const rows = document.querySelectorAll(".entry-row");
+    const rowsPerPage = 8;
+    let currentPage = 0;
+
+    function updateButtons() {
+      document.getElementById("prevBtn").disabled = currentPage === 0;
+      document.getElementById("nextBtn").disabled = (currentPage + 1) * rowsPerPage >= rows.length;
+    }
+
+    function showPage(page) {
+      const start = page * rowsPerPage;
+      const end = start + rowsPerPage;
+
+      rows.forEach((row, index) => {
+        row.style.display = index >= start && index < end ? "" : "none";
+      });
+
+      updateButtons();
+    }
+
+    document.getElementById("prevBtn").addEventListener("click", function () {
+      if (currentPage > 0) {
+        currentPage--;
+        showPage(currentPage);
+      }
+    });
+
+    document.getElementById("nextBtn").addEventListener("click", function () {
+      if ((currentPage + 1) * rowsPerPage < rows.length) {
+        currentPage++;
+        showPage(currentPage);
+      }
+    });
+
+    showPage(currentPage);
   });
 </script>
 
