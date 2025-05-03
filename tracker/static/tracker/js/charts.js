@@ -18,7 +18,6 @@ var pieChart = new Chart(ctxPie, {
             data: categoryTotals,
             backgroundColor: ['#0D4AAC', '#EC1824', '#FEBD01', '#FF5448', '#005EF6', '#FFD14D'],
             borderColor: 'transparent',
-            borderRadius: [50, 50] 
         }]
     },
     options: {
