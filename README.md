@@ -1,6 +1,6 @@
 # 💸 BUDGETARIAN
 
-Welcome to the Personal Budget Tracker — your friendly companion for managing money like a pro. Whether you're saving up for a dream vacation or just want to keep your daily spending in check, this app has got you covered.
+Welcome to the BUDGETARIAN — your friendly companion for managing money like a pro. Whether you're saving up for a dream vacation or just want to keep your daily spending in check, this app has got you covered.
 
 ---
 
