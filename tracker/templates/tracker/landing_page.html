@@ -19,7 +19,7 @@
 
   <!-- Wallet image at bottom -->
   <div class="wallet-wrapper">
-    <img src="{% static 'tracker/images/landing_bg.png' %}" alt="Wallet Image" class="wallet-img">
+    <img src="{% static 'tracker/images/wallet.png' %}" alt="Wallet Image" class="wallet-img">
   </div>
 </div>
 
@@ -44,7 +44,7 @@
 
 /* Wallet Image fills bottom width */
 .wallet-wrapper {
-    margin-bottom: -10em;
+    margin-bottom: -50em;
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -135,7 +135,7 @@ background: linear-gradient(to left, rgba(255, 124, 47, 0.6), rgba(149, 167, 245
 /* Hover Effect - Move both wallet and card up */
 
 .card-container:hover {
-  transform: translateY(-70px);
+  transform: translateY(-100px);
 }
 
 /* background shapes */
@@ -205,5 +205,70 @@ background: linear-gradient(to left, rgba(255, 124, 47, 0.6), rgba(149, 167, 245
     0%   { top: 40%; right: 5%; }
     100% { top: 60%; right: 15%; }
   }
+
+  /* Mobile and small tablets (up to 768px) */
+@media (max-width: 768px) {
+  .rotated-card {
+    width: 50%;
+    height: 150px;
+    padding: 1.5em;
+    transform: rotate(0deg);
+  }
+
+  .moto {
+    font-size: 24px;
+  }
+
+  .register-btn,
+  .login-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .wallet-img {
+    max-width: 100%;
+  }
+
+  .card-container {
+    margin-bottom: 10em;
+    bottom: 80px;
+  }
+
+  .wallet-wrapper {
+    margin-bottom: -15em;
+  }
+}
+
+/* Extra small devices (phones < 480px) */
+@media (max-width: 480px) {
+  .rotated-card {
+    transform: rotate(0deg);
+    padding: 1em;
+  }
+
+  .moto {
+    font-size: 20px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .register-btn,
+  .login-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .wallet-wrapper {
+    margin-bottom: -10em;
+  }
+
+  .wallet-img {
+    max-width: 100%;
+  }
+}
+
 
 </style>

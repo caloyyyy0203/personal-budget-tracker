@@ -52,19 +52,21 @@
 </script>
 
 <style>
-  body {
-    margin: 0;
-  padding: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #e6f0f5;
-  background: url('/static/tracker/images/reg_bg_2.png') no-repeat center center fixed;
-  background-size: cover;
-  background-position-y: -10em;
-  font-family: "Urbanist", sans-serif;
-  }
+   * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Urbanist", sans-serif;
+      background: url('/static/tracker/images/reg_bg_2.png') no-repeat center center fixed;
+      background-size: cover;
+    }
 
 .outer-container {
   width: 100%;
@@ -75,7 +77,7 @@
 
 .login-container {
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
   padding: 30px;
   background: linear-gradient(to bottom, rgba(255, 114, 114, 0.6), rgba(85, 142, 255, 0.6));
   -webkit-backdrop-filter: blur(10px);
@@ -151,5 +153,64 @@ button:hover {
   font-style: italic;
 }
 
+  /* Mobile and small tablets (up to 768px) */
+  @media (max-width: 768px) {
+ 
+
+  .register-btn,
+  .login-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .wallet-img {
+    width: 100%;
+  max-width: 400px;
+  }
+
+
+
+  .login-container {
+    width: 100%;
+  max-width: 300px;
+    margin-bottom: -1em;
+    bottom: 80px;
+  }
+
+  .wallet-wrapper {
+    margin-bottom: 4em;
+  }
+}
+
+/* Extra small devices (phones < 480px) */
+@media (max-width: 480px) {
+  .rotated-card {
+    transform: rotate(0deg);
+    padding: 1em;
+  }
+
+  .moto {
+    font-size: 20px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .register-btn,
+  .login-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .wallet-wrapper {
+    margin-bottom: -10em;
+  }
+
+  .wallet-img {
+    max-width: 100%;
+  }
+}
 
 </style>
