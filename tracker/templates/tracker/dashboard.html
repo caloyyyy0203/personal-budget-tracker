@@ -106,11 +106,11 @@
               <td style="font-weight: bold;">₱{{ entry.amount }}</td>
               <td style="font-style: italic;">{{ entry.notes }}</td>
               <td>
-                  <button type="button" style="border: 0px; background-color: transparent; padding: 5px;"
+                  <button type="button" title="Edit Entry" style="border: 0px; background-color: transparent; padding: 5px;"
                       data-bs-toggle="modal" data-bs-target="#editEntryModal{{ entry.id }}">
                       <img src="{% static 'tracker/images/edit (2).png' %}" alt="Edit" style="width: 24px; height: 24px;" />
                   </button>
-                  <button type="button" style="border: 0px; background-color: transparent; padding: 5px;"
+                  <button type="button" title="Delete Entry" style="border: 0px; background-color: transparent; padding: 5px;"
                       data-bs-toggle="modal" data-bs-target="#deleteEntryModal{{ entry.id }}">
                       <img src="{% static 'tracker/images/delete (2).png' %}" alt="Delete" style="width: 24px; height: 24px;" />
                   </button>

@@ -27,19 +27,16 @@
         <aside class="sidebar">
         <nav>
             <ul>
-                <li><a>
-                    <img src="{% static '/tracker/images/profile.png' %}" alt="Profile" width="30" height="30"></a></li>
-                <li>
-                <li><a href="{% url 'dashboard' %}">
+                <li><a href="{% url 'dashboard' %}" title = "Dashboard">
                     <img src="{% static '/tracker/images/home.png' %}" alt="Home" width="30" height="30">
                 </a></li>
-                <li><a href="{% url 'category_list' %}">
+                <li><a href="{% url 'category_list' %}" title="Categories">
                     <img src="{% static '/tracker/images/category.png' %}" alt="Category" width="30" height="30">
                 </a></li>
                 
                     <form method="post" action="{% url 'logout' %}" style="display:inline;">
                         {% csrf_token %}
-                        <button type="submit" class="logout-btn">
+                        <button type="submit" class="logout-btn" title = "Log Out">
                             <img src="{% static '/tracker/images/logout.png' %}" alt="Logout" width="30" height="30">
                         </button>
                     </form>
