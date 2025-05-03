@@ -3,50 +3,189 @@
 {% block title %}Categories{% endblock %}
 
 {% block content %}
-<h2>Categories</h2>
 
-<a href="{% url 'category_create' %}" class="btn btn-primary mb-3">Add New Category</a>
+{% load static %}
 
-<ul class="list-group">
+
+<div class="first_con" style=" display: flex;
+justify-content: space-between;
+align-items: center;
+margin-top: 1em;
+margin-bottom: 0.5em;">
+  <h2 style="font-family: 'Urbanist', sans-serif; font-size: 24px; font-weight: bold;">Categories</h2>
+  <a  class="filter_btn"  href="{% url 'category_create' %}"  >Add New Category</a>
+</div>
+<div class="background-shapes">
+  <div class="shape yellow-square"></div>
+  <div class="shape red-circle"></div>
+  <div class="shape blue-semicircle-left"></div>
+</div>
+
+<!-- Toggle Buttons -->
+<div class="toggle-container">
+  <button class="btn_first" type="button" data-bs-toggle="collapse" data-bs-target="#incomeCategories" aria-expanded="false" aria-controls="incomeCategories">
+     Income Categories
+  </button>
+  <button class="btn_first" type="button" data-bs-toggle="collapse" data-bs-target="#expenseCategories" aria-expanded="false" aria-controls="expenseCategories">
+     Expense Categories
+  </button>
+</div>
+
+     <!-- Income Categories -->
+<div class="collapse" id="incomeCategories">
+  <div class="category-container mb-4">
     {% for category in categories %}
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            <div>
-                {{ category.name }} ({{ category.type }})
-                {% if category.is_default %}
-                    <span class="badge bg-secondary">Default</span>
-                {% endif %}
-            </div>
-
-            {% if not category.is_default %}
-            <div>
-                <a href="{% url 'category_update' category.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
-                <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ category.id }}">
-                    Delete
-                </button>
-            </div>
-            {% endif %}
-        </li>
-
-        <!-- Delete Confirmation Modal -->
-        <div class="modal fade" id="deleteModal{{ category.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ category.id }}" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel{{ category.id }}">Confirm Deletion</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                Are you sure you want to delete <strong>{{ category.name }}</strong>?
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <a href="{% url 'category_delete' category.pk %}" class="btn btn-danger">Delete</a>
-              </div>
-            </div>
-          </div>
+      {% if category.type == 'Income' %}
+      <div class="category-card">
+        <div><strong>{{ category.name }}</strong> ({{ category.type }})</div>
+        {% if category.is_default %}
+        {% endif %}
+        {% if not category.is_default %}
+        <div class="card-actions">
+          <a href="{% url 'category_update' category.pk %}">
+            <img src="{% static '/tracker/images/edit (2).png' %}" alt="Edit" class="action-icon" />
+          </a>
+          <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal{{ category.id }}">
+            <img src="{% static 'tracker/images/delete (2).png' %}" alt="Delete" class="action-icon" />
+          </a>
         </div>
-    {% empty %}
-        <li class="list-group-item">No categories yet.</li>
+        {% endif %}
+      </div>
+      
+      {% endif %}
     {% endfor %}
-</ul>
+  </div>
+</div>
+
+<!-- Expense Categories -->
+<div class="collapse" id="expenseCategories">
+  <div class="category-container">
+    {% for category in categories %}
+      {% if category.type == 'Expense' %}
+      <div class="category-card">
+        <div><strong>{{ category.name }}</strong> ({{ category.type }})</div>
+        {% if category.is_default %}
+        {% endif %}
+        {% if not category.is_default %}
+        <div class="mt-2 d-flex gap-2">
+          <a href="{% url 'category_update' category.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
+          <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ category.id }}">
+            Delete
+          </button>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+<!-- Delete Modals -->
+{% for category in categories %}
+  {% if not category.is_default %}
+  <div class="modal fade" id="deleteModal{{ category.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ category.id }}" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel{{ category.id }}">Confirm Deletion</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete <strong>{{ category.name }}</strong>?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <a href="{% url 'category_delete' category.pk %}" class="btn btn-danger">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    
+  {% endif %}
+{% endfor %}
+<style>
+  .category-container {
+    background: linear-gradient(to right, rgba(248, 0, 0, 0.2), rgba(255, 145, 0, 0.2));
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(20px);
+    color: white;
+    border-radius: 30px;
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  
+  .category-card {
+    font-family: 'Urbanist',sans-serif;
+    font-size: 18px;
+    background-color: #ffffff;
+    color: #212529;
+    border-radius: 20px;
+    padding-top: 4em;
+    padding-bottom: 4em;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    transition: transform 0.2s;
+  }
+  
+  .category-card:hover {
+    transform: translateY(-5px);
+  }
+  
+
+  
+  .card-actions {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .toggle-container{
+    margin-bottom: 0.5em;
+
+  }
+  
+  .action-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .action-icon:hover {
+    transform: scale(1.1);
+  }
+
+  .filter_btn {
+        font-family: 'Urbanist',sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+    width: 12em; 
+    padding: 6px;
+    border-radius: 200px;
+    background-color: #FEBD01; 
+    text-decoration: none;
+    color: rgb(0, 0, 0); 
+    border: none; 
+    cursor: pointer; 
+    margin-left: 0.5em;
+    transition: background-color 0.3s; 
+}
+
+/* Hover effect for the button */
+.filter_btn:hover {
+    background-color: #ffffff; 
+    color: #FEBD01;
+}   
+  </style>
+  
 {% endblock %}
