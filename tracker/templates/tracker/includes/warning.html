@@ -1,24 +1,39 @@
 <style>
     .custom-warning {
-        font-size: 14px;  /* Smaller text */
-        padding: 10px;    /* Reduced padding for a more compact alert */
-        background-color: #fff3cd;  /* Subtle yellow */
-        border-color: #ffeeba;  /* Lighter border color */
-        color: #856404;  /* Dark yellow text */
-        width: 45%;
+        font-size: 14px;
+        padding: 10px;
+        background-color: #EC1824;
+        color: #ffffff;
+        border-color: #EC1824;
+        width: 100%;
+        max-width: 600px;
+        box-sizing: border-box;
+        
+        border-radius: 6px;
     }
 
     .custom-warning ul {
-        padding-left: 20px;  /* Indentation for the list */
-        margin-bottom: 0;  /* Remove bottom margin */
+        padding-left: 20px;
+        margin-bottom: 0;
     }
 
     .custom-warning li {
-        font-size: 13px;  /* Smaller text size for the list items */
-        margin-bottom: 5px;  /* Space between list items */
+        font-size: 13px;
+        margin-bottom: 5px;
     }
 
+    @media screen and (max-width: 600px) {
+        .custom-warning {
+            font-size: 13px;
+            padding: 8px;
+        }
+
+        .custom-warning li {
+            font-size: 12px;
+        }
+    }
 </style>
+
 
 <div class="alert alert-warning custom-warning" role="alert">
     <strong>Warning!</strong> The following categories have exceeded the budget for {{ month }}/{{ year }}:
