@@ -1,0 +1,18 @@
+{% load static %}
+
+<div class="category-card">
+    <div><strong>{{ category.name }}</strong> ({{ category.type }})</div>
+  
+    {% if not category.is_default %}
+    <div class="card-actions">
+    <a href="{% url 'category_update' category.pk %}" aria-label="Edit {{ category.name }}">
+        <img src="{% static 'tracker/images/edit (2).png' %}" alt="Edit" class="action-icon" />
+    </a>
+    <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal{{ category.id }}" aria-label="Delete {{ category.name }}">
+        <img src="{% static 'tracker/images/delete (2).png' %}" alt="Delete" class="action-icon" />
+    </a>
+    </div>
+    {% endif %}
+
+  </div>
+  
