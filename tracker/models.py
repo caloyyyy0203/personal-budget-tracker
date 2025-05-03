@@ -11,7 +11,7 @@ class Budget(models.Model):
     amount = models.DecimalField(max_digits=50, decimal_places=2)
 
     def __str__(self):
-        return f"{self.user.username} - {self.category.name} - {self.month}/{self.year} - ${self.amount}"
+        return f"{self.user.username} - {self.category.name} - {self.month}/{self.year} - ${self.amount:.2f}"
 
 class Category(models.Model):
     INCOME = 'Income'
@@ -45,4 +45,4 @@ class Entry(models.Model):
     notes = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.title} - {self.amount} ({self.entry_type})"
+        return f"{self.title} - {self.amount:.2f} ({self.entry_type})"
