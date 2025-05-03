@@ -67,11 +67,13 @@ margin-bottom: 0.5em;">
         {% if category.is_default %}
         {% endif %}
         {% if not category.is_default %}
-        <div class="mt-2 d-flex gap-2">
-          <a href="{% url 'category_update' category.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
-          <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ category.id }}">
-            Delete
-          </button>
+        <div class="card-actions">
+          <a href="{% url 'category_update' category.pk %}">
+            <img src="{% static '/tracker/images/edit (2).png' %}" alt="Edit" class="action-icon" />
+          </a>
+          <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal{{ category.id }}">
+            <img src="{% static 'tracker/images/delete (2).png' %}" alt="Delete" class="action-icon" />
+          </a>
         </div>
         {% endif %}
       </div>
@@ -82,19 +84,21 @@ margin-bottom: 0.5em;">
 <!-- Delete Modals -->
 {% for category in categories %}
   {% if not category.is_default %}
-  <div class="modal fade" id="deleteModal{{ category.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ category.id }}" aria-hidden="true">
-    <div class="modal-dialog">
+  <div class="modal fade"   id="deleteModal{{ category.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ category.id }}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="font-family: 'Urbanist', sans-serif;">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header" style="border-bottom: 0;">
           <h5 class="modal-title" id="deleteModalLabel{{ category.id }}">Confirm Deletion</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="border: 0;">
           Are you sure you want to delete <strong>{{ category.name }}</strong>?
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <a href="{% url 'category_delete' category.pk %}" class="btn btn-danger">Delete</a>
+        <div class="modal-footer" style="border-top: 0;">
+          <button type="button" class="btn btn-secondary"   style="background-color: #9e9e9e; color: #ffffff; border: 0; border-radius: 100px; padding: 8px; width: 5em;" data-bs-dismiss="modal">Cancel</button>
+          <a href="{% url 'category_delete' category.pk %}" 
+          style="background-color: #EC1824; color: #ffffff; border: 0; border-radius: 100px; padding: 8px; width: 5em;" 
+          class="btn btn-danger">Delete</a>
         </div>
       </div>
     </div>

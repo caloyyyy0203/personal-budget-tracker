@@ -6,13 +6,13 @@
             <h3 id="pieChartTitle">Expense Breakdown by Category</h3>
             <div>
                 <label for="chartTypeSelector" style="margin-right: 10px;"></label>
-                <select id="chartTypeSelector" onchange="switchChart(this.value)"
+                <select class="option" id="chartTypeSelector" onchange="switchChart(this.value)"
                  style="width: 150px; display: inline-block;
                  padding: 8px;
                  background-color: white;
                  border-radius: 10px;"> 
-                    <option value="expense">Expense</option>
-                    <option value="income">Income</option>
+                    <option class="option" value="expense">Expense</option>
+                    <option class="option" value="income">Income</option>
                 </select>
             </div>
         </div>
@@ -29,6 +29,12 @@
 </div>
 
 <style>
+
+#chartTypeSelector:hover {
+    background-color: #0D4AAC; /* Light gray on hover */
+    cursor: pointer;
+  }
+
 .chart-wrapper {
     display: flex;
     gap: 1em;
