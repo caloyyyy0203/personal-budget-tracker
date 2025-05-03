@@ -6,9 +6,8 @@ import datetime
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
-# from tracker.models import Entry, Category, Budget
-# from django.utils import timezone
 from decimal import Decimal
+
 class TrackerViewsTestCase(TestCase):
     def setUp(self):
         self.client = Client()
@@ -59,34 +58,37 @@ class TrackerViewsTestCase(TestCase):
         self.assertTemplateUsed(response, 'tracker/edit_entry.html')
 
     def test_edit_entry_post(self):
-        # self.client.login(username='testuser', password='testpassword')  # Log in the test user
+        # Log in the test user
+        self.client.login(username='testuser', password='testpassword')
 
         # Create an entry to edit
         entry = Entry.objects.create(
             title='Old Title',
             entry_type='Expense',
             amount=50,
-            date=timezone.now(),
-            category=self.category,
+            date=timezone.now().date(),  # Store only the date part if necessary
+            category=self.category,  # Ensure category is assigned properly
             user=self.user
         )
 
-        # POST updated data
+        # Post updated data
         response = self.client.post(reverse('edit_entry', args=[entry.id]), {
             'title': 'Updated Title',
             'entry_type': 'Expense',
             'amount': 75,
-            'date': timezone.now(),
-            'category': self.category.id
+            'date': timezone.now().date(),  # Make sure the date is also passed correctly
+            'category': self.category.id  # Ensure category is passed and updated
         })
 
         # Reload entry from DB
         entry.refresh_from_db()
 
         # Assertions
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(entry.title, 'Updated Title')
-        self.assertEqual(entry.amount, 75)
+        self.assertEqual(response.status_code, 302)  # Check for redirect after edit
+        self.assertEqual(entry.title, 'Updated Title')  # Ensure the title was updated
+        self.assertEqual(entry.amount, 75)  # Ensure the amount was updated
+        self.assertEqual(entry.category.id, self.category.id)  # Ensure the category remained the same
+
 
 
     def test_delete_entry(self):
