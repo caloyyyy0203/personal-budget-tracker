@@ -119,18 +119,22 @@
 
         </td>
     </tr>
-
-    <!-- Include the Edit and Delete Modals for each entry -->
-    {% include 'tracker/modals/edit_entry_modal.html' %}
-    {% include 'tracker/modals/delete_entry_modal.html' %}
     
     {% empty %}
     <tr>
         <td colspan="6">No entries this month.</td> <!-- Fixed colspan to 6 -->
     </tr>
+
     {% endfor %}
 </table>
+
+
 </div>
+<!-- Entry Modals (placed outside of the table) -->
+{% for entry in entries %}
+  {% include 'tracker/modals/edit_entry_modal.html' %}
+  {% include 'tracker/modals/delete_entry_modal.html' %}
+{% endfor %}
 
 
 
