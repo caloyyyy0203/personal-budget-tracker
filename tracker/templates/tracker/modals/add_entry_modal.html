@@ -62,7 +62,7 @@
 
           <div class="mb-3">
             <label for="notes" class="form-label">Notes</label>
-            <textarea class="form-control" name="notes" id="notes" rows="3">{{ form.notes.value }}</textarea>
+            <textarea class="form-control" name="notes" id="notes" rows="3" maxlength="80">{{ form.notes.value }}</textarea>
             {% if form.notes.errors %}
               <ul class="error-list">
                 {% for error in form.notes.errors %}
